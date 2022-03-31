@@ -17,6 +17,7 @@ jobs:
       uses: actions/setup-java@v3
       with:
         distribution: 'temurin' # See 'Supported distributions' for available options
-        java-version: '11'
+        java-version: '8'
+        cache: 'maven'
     - name: Run test
       run: mvn clean test
