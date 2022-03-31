@@ -50,7 +50,6 @@ public class CustomerServiceTest {
         MockitoAnnotations.initMocks(this);
     }
 
-
     @Test
     public void testPLZAddressCombination() {
 
