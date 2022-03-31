@@ -9,6 +9,7 @@
     <packaging>jar</packaging>
     <name>junitsample</name>
     <description>JUnit Sample</description>
+    
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
