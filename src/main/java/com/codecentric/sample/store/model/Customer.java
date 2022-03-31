@@ -1,7 +1,5 @@
 package com.codecentric.sample.store.model;
 
-import java.util.UUID;
-
 public class Customer {
 
     private String id;
