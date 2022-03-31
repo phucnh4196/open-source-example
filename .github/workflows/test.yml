@@ -1,6 +1,8 @@
 name: Unit Test
 
 on:
+  issue_comment:
+    types: [created]
   pull_request:
     branches: [ master ]
 
