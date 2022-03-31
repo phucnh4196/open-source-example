@@ -57,7 +57,7 @@ public class CustomerServiceTest {
         //
         // Given
         //
-        Customer customer = new Customer("204", "John Do", "221B Baker5street");
+        Customer customer = new Customer("204", "John Do", "221B Bakerstree4t");
         when(addressService.getPLZForCustomer(customer)).thenReturn(47891);
 
         //
