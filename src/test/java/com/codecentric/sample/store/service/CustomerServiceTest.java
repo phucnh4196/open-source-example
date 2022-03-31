@@ -1,12 +1,9 @@
 package com.codecentric.sample.store.service;
 
 import com.codecentric.sample.store.model.Customer;
-import com.codecentric.sample.store.model.Item;
-import com.codecentric.sample.store.repository.ItemRepository;
 import com.codecentric.sample.store.service.external.AddressService;
 import com.codecentric.sample.store.service.external.HostService;
 import com.codecentric.sample.store.service.tools.StaticService;
-import com.sun.jndi.cosnaming.IiopUrl;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -57,7 +54,7 @@ public class CustomerServiceTest {
         //
         // Given
         //
-        Customer customer = new Customer("204", "John Do", "221B Bakertreet");
+        Customer customer = new Customer("204", "John Do", "221B Bakerstreet");
         when(addressService.getPLZForCustomer(customer)).thenReturn(47891);
 
         //
