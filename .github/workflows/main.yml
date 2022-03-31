@@ -18,8 +18,8 @@ jobs:
   trigger-circleci:
     runs-on: ubuntu-latest
     steps:
-      - name: <customize name>
-        id: <customize id>
+      - name: name
+        id: id
         uses: CircleCI-Public/trigger-circleci-pipeline-action@v1.0.4
         env:
           CCI_TOKEN: ${{ secrets.CCI_TOKEN }}
