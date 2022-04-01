@@ -26,3 +26,6 @@ jobs:
         cache: 'maven'
     - name: Run test
       run: mvn clean test
+    - uses: codecov/codecov-action@v2
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
