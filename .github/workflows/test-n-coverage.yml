@@ -10,6 +10,8 @@ on:
  
 jobs:
   build:
+    permissions:
+      checks: write
     runs-on: ubuntu-latest
 
     steps:
@@ -26,8 +28,6 @@ jobs:
     - name: Report Test
       uses: dorny/test-reporter@v1
       if: always()
-      permissions:
-        checks: write
       with:
         name: Maven Tests
         path: target/surefire-reports/*.xml
