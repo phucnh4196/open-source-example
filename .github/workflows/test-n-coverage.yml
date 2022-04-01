@@ -23,7 +23,7 @@ jobs:
         java-version: '8'
         cache: 'maven'
     - name: Run test
-      run: mvn test
+      run: mvn --batch-mode -Dmaven.test.failure.ignore=true test
     - name: Code Coverage
       uses: codecov/codecov-action@v2
       with:
