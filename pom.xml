@@ -93,7 +93,7 @@
                 </systemPropertyVariables>
                 <excludes>
                     <exclude>**/codecentric/sample/store/model/*</exclude>
-                    <exclude>**/codecentric/sample/*</exclude>
+                    <exclude>**/codecentric/sample/*.java</exclude>
                 </excludes>
             </configuration>
             </plugin>
