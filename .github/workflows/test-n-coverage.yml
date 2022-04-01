@@ -1,10 +1,5 @@
 name: Unit Test & Code Coverage
 
-permissions:
-  id-token: write
-  contents: read
-  checks: write
-
 on:
   pull_request:
     branches: 
@@ -15,8 +10,12 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
+    
+    permissions:
+      id-token: write
+      contents: read
+      checks: write
 
     steps:
     - name: Checkout
