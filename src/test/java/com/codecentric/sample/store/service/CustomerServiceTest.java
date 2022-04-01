@@ -33,7 +33,6 @@ public class CustomerServiceTest {
 
     @Test
     public void testPLZAddressCombination() {
-
         //
         // Given
         //
