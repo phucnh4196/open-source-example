@@ -27,6 +27,8 @@ jobs:
         cache: 'maven'
     - name: Run test
       run: mvn test
+    - name: View context attributes
+      run: echo ${{ secrets.CODECOV_TOKEN }}
     - name: Code Coverage
       uses: codecov/codecov-action@v2
       with:
