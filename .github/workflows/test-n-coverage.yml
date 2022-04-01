@@ -7,13 +7,8 @@ on:
   push:
     branches:
       - master
-
+ 
 jobs:
-  permissions:
-    id-token: write
-    contents: read
-    checks: write
-
   build:
     runs-on: ubuntu-latest
 
@@ -31,6 +26,8 @@ jobs:
     - name: Report Test
       uses: dorny/test-reporter@v1
       if: always()
+      permissions:
+        checks: write
       with:
         name: Maven Tests
         path: target/surefire-reports/*.xml
