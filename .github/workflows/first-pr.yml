@@ -1,0 +1,22 @@
+name: New contributor message
+
+on:
+  pull_request_target:
+    types: [opened]
+
+jobs:
+  build:
+    name: Hello new contributor
+    runs-on: ubuntu-latest
+    steps:
+      - uses: deborah-digges/new-pull-request-comment-action
+        with:
+          access-token: ${{ secrets.ACCESS_TOKEN }}
+          message: |
+            Hello @{}! Thank you for your contribution!
+
+            As this is your first contribution be sure to check out the checklist.
+
+            We'll review shortly.
+
+            Welcome!
