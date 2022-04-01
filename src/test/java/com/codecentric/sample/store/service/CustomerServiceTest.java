@@ -43,7 +43,6 @@ public class CustomerServiceTest {
         // When
         //
         String address = customerService.getPLZAddressCombination(customer);
-        String a = "1";
         //
         // Then
         //
