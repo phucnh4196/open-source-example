@@ -15,6 +15,7 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
     - name: Checkout Pull Request
+      if: github.event.issue.number
       run: hub pr checkout ${{ github.event.issue.number }}
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
@@ -26,7 +27,8 @@ jobs:
         cache: 'maven'
     - name: Run test
       run: mvn test
-    - uses: codecov/codecov-action@v2
+    - name: Code Coverage
+      uses: codecov/codecov-action@v2
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
         files: ./jacoco.xml,
