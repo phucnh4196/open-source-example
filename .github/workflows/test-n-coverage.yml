@@ -23,7 +23,12 @@ jobs:
         java-version: '8'
         cache: 'maven'
     - name: Run test
-      run: mvn --batch-mode -Dmaven.test.failure.ignore=true test
+      run: mvn test
+    - name: Publish Unit Test Results
+      uses: EnricoMi/publish-unit-test-result-action@v1
+      if: always()
+      with:
+        files: "./target/surefire-reports/**/*.xml"
     - name: Code Coverage
       uses: codecov/codecov-action@v2
       with:
