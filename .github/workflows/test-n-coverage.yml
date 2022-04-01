@@ -9,13 +9,13 @@ on:
       - master
 
 jobs:
+  permissions:
+    id-token: write
+    contents: read
+    checks: write
+    
   build:
     runs-on: ubuntu-latest
-    
-    permissions:
-      id-token: write
-      contents: read
-      checks: write
 
     steps:
     - name: Checkout
