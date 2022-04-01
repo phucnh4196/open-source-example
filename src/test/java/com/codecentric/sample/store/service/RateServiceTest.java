@@ -61,7 +61,6 @@ public class RateServiceTest {
         MockitoAnnotations.initMocks(this);
     }
 
-
     @Test
     public void rateCalculationTest() {
 
