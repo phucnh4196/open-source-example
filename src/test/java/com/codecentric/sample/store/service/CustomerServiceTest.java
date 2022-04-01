@@ -31,23 +31,23 @@ public class CustomerServiceTest {
         MockitoAnnotations.initMocks(this);
     }
 
-    @Test
-    public void testPLZAddressCombination() {
-        //
-        // Given
-        //
-        Customer customer = new Customer("204", "John Do", "221B Bakerstreet");
-        when(addressService.getPLZForCustomer(customer)).thenReturn(47891);
+    // @Test
+    // public void testPLZAddressCombination() {
+    //     //
+    //     // Given
+    //     //
+    //     Customer customer = new Customer("204", "John Do", "221B Bakerstreet");
+    //     when(addressService.getPLZForCustomer(customer)).thenReturn(47891);
 
-        //
-        // When
-        //
-        String address = customerService.getPLZAddressCombination(customer);
-        //
-        // Then
-        //
-        assertThat(address, is("47891_221B Bakerstreet"));
-    }
+    //     //
+    //     // When
+    //     //
+    //     String address = customerService.getPLZAddressCombination(customer);
+    //     //
+    //     // Then
+    //     //
+    //     assertThat(address, is("47891_221B Bakerstreet"));
+    // }
 
 
     @Test
