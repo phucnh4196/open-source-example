@@ -11,10 +11,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      contents: read
-      checks: write
     steps:
     - name: Checkout
       uses: actions/checkout@v2
@@ -26,14 +22,11 @@ jobs:
         cache: 'maven'
     - name: Run test
       run: mvn test
-    - name: Report Test
-      uses: dorny/test-reporter@v1
+    - uses: actions/upload-artifact@v2
       if: always()
       with:
-        name: Maven Tests
+        name: test-results
         path: target/surefire-reports/*.xml
-        fail-on-error: true
-        token: ${{ secrets.GITHUB_TOKEN }}
     - name: Code Coverage
       uses: codecov/codecov-action@v2
       with:
