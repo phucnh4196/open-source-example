@@ -27,18 +27,9 @@ jobs:
       with:
         name: test-results
         path: target/surefire-reports/*.xml
-    - uses: actions/upload-artifact@v2
+    - name: Code Coverage
+      uses: codecov/codecov-action@v2
       with:
-        name: jacoco
-        path: target/site/jacoco/jacoco.xml
-    - name: Save the PR number in an artifact
-      if: github.event.number
-      shell: bash
-      env:
-        PR_NUM: ${{ github.event.number }}
-      run: echo $PR_NUM > pr_num.txt
-    - name: Upload the PR number
-      uses: actions/upload-artifact@v2
-      with:
-        name: pr_num
-        path: ./pr_num.txt
+        token: ${{ secrets.CODECOV_TOKEN }}
+        files: jacoco.xml
+        directory: ./target/site/jacoco/
