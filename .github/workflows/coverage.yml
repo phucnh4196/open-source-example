@@ -1,4 +1,4 @@
-name: 'Test Reporter'
+name: 'Run Code Coverage'
 
 on:
   workflow_run:
@@ -6,14 +6,14 @@ on:
     types:
       - completed
 jobs:
-  on-failure:
+  Process:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
     - name: Download artifacts
       uses: actions/download-artifact@v3
       with:
-        name: test-results
+        name: jacoco
     - name: Code Coverage
       uses: codecov/codecov-action@v2
       with:
