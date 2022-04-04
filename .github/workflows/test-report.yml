@@ -1,7 +1,7 @@
 name: 'Test Report'
 on:
   workflow_run:
-    workflows: ['Test']
+    workflows: ['Unit Test & Code Coverage']
     types:
       - completed
 jobs:
