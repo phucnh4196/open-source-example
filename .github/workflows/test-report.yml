@@ -2,7 +2,7 @@ name: 'Test Reporter'
 
 on:
   workflow_run:
-    workflows: ['Unit Test']
+    workflows: ['Test CI']
     types:
       - completed
 jobs:
