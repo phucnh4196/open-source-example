@@ -68,7 +68,7 @@ public class CustomerServiceTest {
             }
         }).when(hostService).expand(any(Customer.class));
 
-        when(addressService.getPLZForCustomer(customer)).thenReturn(47891);
+        when(addressService.getPLZForCustomer(customer)).thenReturn(478912);
         doNothing().when(addressService).updateExternalSystems(customer);
 
         //
