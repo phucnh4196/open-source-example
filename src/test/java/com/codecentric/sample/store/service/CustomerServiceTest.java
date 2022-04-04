@@ -25,7 +25,6 @@ public class CustomerServiceTest {
     @InjectMocks
     private CustomerService customerService;
 
-
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
