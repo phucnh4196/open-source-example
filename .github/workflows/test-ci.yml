@@ -1,4 +1,4 @@
-name: Unit Test & Code Coverage
+name: Unit Test
 
 on:
   pull_request:
@@ -27,9 +27,8 @@ jobs:
       with:
         name: test-results
         path: target/surefire-reports/*.xml
-    - name: Code Coverage
-      uses: codecov/codecov-action@v2
+    - uses: actions/upload-artifact@v2
+      if: always()
       with:
-        token: ${{ secrets.CODECOV_TOKEN }}
-        files: jacoco.xml
-        directory: ./target/site/jacoco/
+        name: test-results
+        path: target/site/jacoco/jacoco.xml
