@@ -7,12 +7,10 @@ on:
   push:
     branches:
       - master
-
+ 
 jobs:
   build:
-    permissions: write-all
     runs-on: ubuntu-latest
-
     steps:
     - name: Checkout
       uses: actions/checkout@v2
@@ -24,6 +22,11 @@ jobs:
         cache: 'maven'
     - name: Run test
       run: mvn test
+    - uses: actions/upload-artifact@v2
+      if: always()
+      with:
+        name: test-results
+        path: target/surefire-reports/*.xml
     - name: Code Coverage
       uses: codecov/codecov-action@v2
       with:
