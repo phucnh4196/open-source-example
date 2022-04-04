@@ -14,3 +14,4 @@ jobs:
         name: JUnit
         path: '*.xml'
         reporter: java-junit
+        fail-on-error: false
