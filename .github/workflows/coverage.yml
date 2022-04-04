@@ -10,6 +10,17 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
+    - name: Download workflow artifact
+      uses: dawidd6/action-download-artifact@v2.11.0
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        workflow: peek_icons.yml
+        run_id: ${{ github.event.workflow_run.id }}
+    - name: Read the pr_num file
+      id: pr_num_reader
+      uses: juliangruber/read-file-action@v1.0.0
+      with:
+        path: ./pr_num/pr_num.txt
     - name: Dump context
       uses: crazy-max/ghaction-dump-context@v1
     - name: Download artifact
@@ -23,3 +34,4 @@ jobs:
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
         files: jacoco.xml
+        override-pr: ${{ steps.pr_num_reader.outputs.content }}
