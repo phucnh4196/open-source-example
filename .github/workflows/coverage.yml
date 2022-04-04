@@ -34,4 +34,4 @@ jobs:
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
         files: jacoco.xml
-        override-pr: ${{ steps.pr_num_reader.outputs.content }}
+        override_pr: ${{ steps.pr_num_reader.outputs.content }}
