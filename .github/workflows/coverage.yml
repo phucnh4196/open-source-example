@@ -1,4 +1,4 @@
-name: 'Run Code Coverage'
+name: 'Test Reporter'
 
 on:
   workflow_run:
