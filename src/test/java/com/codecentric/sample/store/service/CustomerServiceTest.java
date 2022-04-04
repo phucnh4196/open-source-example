@@ -70,7 +70,7 @@ public class CustomerServiceTest {
 
         when(addressService.getPLZForCustomer(customer)).thenReturn(47891);
         doNothing().when(addressService).updateExternalSystems(customer);
- 
+
         // 
         // When
         //
