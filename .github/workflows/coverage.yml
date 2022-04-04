@@ -10,11 +10,12 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
-    # - name: Download artifacts
-    #   uses: actions/download-artifact@v2
-    #   with:
-    #     name: test-jacoco
-    - uses: actions/download-artifact@v3
+    - name: Download artifact
+      uses: dawidd6/action-download-artifact@v2
+      with:
+        workflow: ${{ github.event.workflow_run.workflow_id }}
+        workflow_conclusion: success
+        name: jacoco
     - name: Code Coverage
       uses: codecov/codecov-action@v2
       with:
