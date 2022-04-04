@@ -13,9 +13,9 @@ jobs:
     - name: Download workflow artifact
       uses: dawidd6/action-download-artifact@v2.11.0
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        workflow: peek_icons.yml
-        run_id: ${{ github.event.workflow_run.id }}
+        workflow: ${{ github.event.workflow_run.workflow_id }}
+        workflow_conclusion: success
+        name: pr_num
     - name: Read the pr_num file
       id: pr_num_reader
       uses: juliangruber/read-file-action@v1.0.0
