@@ -29,5 +29,5 @@ jobs:
         path: target/surefire-reports/*.xml
     - uses: actions/upload-artifact@v2
       with:
-        name: test-jacoco
+        name: jacoco
         path: target/site/jacoco/jacoco.xml
