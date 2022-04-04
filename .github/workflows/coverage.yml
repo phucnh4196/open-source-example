@@ -20,7 +20,7 @@ jobs:
       id: pr_num_reader
       uses: juliangruber/read-file-action@v1.0.0
       with:
-        path: ./pr_num/pr_num.txt
+        path: ./pr_num.txt
     - name: Dump context
       uses: crazy-max/ghaction-dump-context@v1
     - name: Download artifact
