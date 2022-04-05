@@ -52,7 +52,7 @@ public class CustomerServiceTest {
     @Test
     public void testPLZAddressCombinationIncludingHostValue() {
         //
-        // Given
+        // Given1
         //
         Customer customer = new Customer("204", "John Do", "224B Bakerstreet");
 
