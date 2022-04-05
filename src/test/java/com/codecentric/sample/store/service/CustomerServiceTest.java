@@ -52,7 +52,6 @@ public class CustomerServiceTest {
 
     @Test
     public void testPLZAddressCombinationIncludingHostValue() {
-
         //
         // Given
         //
