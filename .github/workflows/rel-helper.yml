@@ -31,11 +31,13 @@ jobs:
     #       -Denv.NEXUS_PASS=${{ secrets.NEXUS_PASS }} \
     #       -Denv.NEXUS_REPO_RELEASE=${{ secrets.NEXUS_REPO_RELEASE }} \
     #       -Dmaven.test.skip=true
-    - name: Generate release changelog
+    - name: Generate Changelog
       id: Changelog
-      uses: heinrichreimer/github-changelog-generator-action@v2.3
+      uses: mikepenz/release-changelog-builder-action@v1
       with:
-        token: ${{ secrets.GITHUB_TOKEN }} 
+        configuration: ".github/changelog.json"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Create Release
       id: create_release
       uses: actions/create-release@latest
