@@ -1,9 +1,9 @@
-name: Test CI
+name: Release Helper
 
 on:
   push:
     tags:
-      - '**'
+      - 'v*.*.*'
  
 jobs:
   build:
