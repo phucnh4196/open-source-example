@@ -4,11 +4,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.viettel.sample</groupId>
-    <artifactId>junitsample</artifactId>
-    <version>1.0.7</version>
+    <artifactId>viettelsample</artifactId>
+    <version>1.0.8</version>
     <packaging>jar</packaging>
-    <name>junitsample</name>
-    <description>JUnit Sample</description>
+    <name>viettelsample</name>
+    <description>Viettel Sample</description>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>

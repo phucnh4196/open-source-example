@@ -1,0 +1,22 @@
+{
+  "categories": [
+    {
+      "title": "## 🚀 Features",
+      "labels": ["enhancement"]
+    },
+    {
+      "title": "## 🐛 Bug Fixes",
+      "labels": ["bug"]
+    },
+    {
+      "title": "## ✨ Others",
+      "labels": "*"
+    }
+  ],
+  "ignore_labels": [
+    "ignore"
+  ],
+  "base_branches": [
+    "master"
+  ]
+}

@@ -23,13 +23,17 @@ jobs:
           script: |
             const tag = context.ref.replace('refs\/tags\/', '')
             core.exportVariable('tag', tag)
-    - name: Publish
-      run: |
-        mvn deploy \
-          --settings .settings.xml \
-          -Denv.NEXUS_USERNAME=${{ secrets.NEXUS_USERNAME }} \
-          -Denv.NEXUS_PASS=${{ secrets.NEXUS_PASS }} \
-          -Denv.NEXUS_REPO_RELEASE=${{ secrets.NEXUS_REPO_RELEASE }} \
-          -Dmaven.test.skip=true
-    - name: Release notes generator
-      uses: Decathlon/release-notes-generator-action@v3.1.5
+    # - name: Publish
+    #   run: |
+    #     mvn deploy \
+    #       --settings .settings.xml \
+    #       -Denv.NEXUS_USERNAME=${{ secrets.NEXUS_USERNAME }} \
+    #       -Denv.NEXUS_PASS=${{ secrets.NEXUS_PASS }} \
+    #       -Denv.NEXUS_REPO_RELEASE=${{ secrets.NEXUS_REPO_RELEASE }} \
+    #       -Dmaven.test.skip=true
+    - name: "Build Changelog"
+      uses: mikepenz/release-changelog-builder-action@{latest-release}
+      with:
+        configuration: ".github/changelog.json"
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
