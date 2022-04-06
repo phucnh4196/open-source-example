@@ -27,9 +27,9 @@ jobs:
       run: |
         mvn deploy \
           --settings .settings.xml \
-          -Denv.NEXUS_USERNAME=admin \
-          -Denv.NEXUS_PASS=123123 \
-          -Denv.NEXUS_REPO_RELEASE=https://8081-gitpodio-springpetclinic-u2h6vnmoh9s.ws-us38.gitpod.io/repository/maven-releases/ \
+          -Denv.NEXUS_USERNAME=${{ secrets.NEXUS_USER }} \
+          -Denv.NEXUS_PASS=${{ secrets.NEXUS_PASS }} \
+          -Denv.NEXUS_REPO_RELEASE=${{ secrets.NEXUS_REPO_RELEASE }} \
           -Dmaven.test.skip=true
     - name: Release notes generator
       uses: Decathlon/release-notes-generator-action@v3.1.5

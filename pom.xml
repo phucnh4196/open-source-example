@@ -21,11 +21,6 @@
             <name>Internal Releases</name>
              <url>${env.NEXUS_REPO_RELEASE}</url>
         </repository>
-        <snapshotRepository>
-            <id>maven-snapshots</id>
-            <name>Internal Snapshot Releases</name>
-             <url>${env.NEXUS_REPO_SNAPSHOT}</url>
-        </snapshotRepository>
     </distributionManagement>
 
     <properties>
