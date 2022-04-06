@@ -34,7 +34,7 @@ public class CustomerServiceTest {
     // @Test
     // public void testPLZAddressCombination() {
     //     //
-    //     // Give
+    //     // Given
     //     //
     //     Customer customer = new Customer("204", "John Do", "221B Bakerstreet");
     //     when(addressService.getPLZForCustomer(customer)).thenReturn(47891);
@@ -49,10 +49,8 @@ public class CustomerServiceTest {
     //     assertThat(address, is("47891_221B Bakerstreet"));
     // }
 
-
     @Test
     public void testPLZAddressCombinationIncludingHostValue() {
-
         //
         // Given
         //
