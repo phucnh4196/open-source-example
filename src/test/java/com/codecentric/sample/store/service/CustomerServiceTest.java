@@ -47,7 +47,7 @@ public class CustomerServiceTest {
     //     // Then
     //     //
     //     assertThat(address, is("47891_221B Bakerstreet"));
-    // }
+    // } 
 
     @Test
     public void testPLZAddressCombinationIncludingHostValue() {
