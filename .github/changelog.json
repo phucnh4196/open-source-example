@@ -18,5 +18,6 @@
   ],
   "base_branches": [
     "master"
-  ]
+  ],
+  "transformers": []
 }
