@@ -31,7 +31,7 @@ public class CustomerServiceTest {
         MockitoAnnotations.initMocks(this);
     }
 
-    // @Test 
+    // @Test 6
     // public void testPLZAddressCombination() {
     //     //
     //     // Given
