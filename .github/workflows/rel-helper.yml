@@ -31,9 +31,29 @@ jobs:
     #       -Denv.NEXUS_PASS=${{ secrets.NEXUS_PASS }} \
     #       -Denv.NEXUS_REPO_RELEASE=${{ secrets.NEXUS_REPO_RELEASE }} \
     #       -Dmaven.test.skip=true
-    - name: "Build Changelog"
-      uses: mikepenz/release-changelog-builder-action@v1
-      with:
-        configuration: ".github/changelog.json"
+    - name: Prepare CHANGELOG
+      run: |
+        echo "${{ github.event.pull_request.body }}" | csplit -s - "/##/"
+        echo "# Changelog
+
+        ## ${{ env.VERSION }}
+        " >> CHANGELOG.tmp
+        grep "^*" xx01 >> CHANGELOG.tmp
+        grep -v "^# " CHANGELOG.md >> CHANGELOG.tmp
+        cp CHANGELOG.tmp CHANGELOG.md
+    - name: Prepare description
+      run: |
+        csplit -s CHANGELOG.md "/##/" {1}
+        cat xx01 > CHANGELOG.tmp
+    - name: Prepare tag
+      run: |
+        export TAG=$(head -1 CHANGELOG.tmp | cut -d' ' -f2)
+        echo "TAG=$TAG" >> $GITHUB_ENV
+    - name: Create Release
+      uses: actions/create-release@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: $tag
+        release_name: $tag
+        body_path: CHANGELOG.tmp
