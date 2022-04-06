@@ -53,7 +53,7 @@ public class CustomerServiceTest {
     public void testPLZAddressCombinationIncludingHostValue() {
         //
         // Given
-        //
+        // 
         Customer customer = new Customer("204", "John Do", "224B Bakerstreet");
 
         doAnswer(new Answer<Customer>() {
