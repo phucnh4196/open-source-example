@@ -13,8 +13,8 @@
     "ignore"
   ],
   "sort": "ASC",
-  "template": "${{CHANGELOG}}\n\n<details>\n<summary>Uncategorized</summary>\n\n${{UNCATEGORIZED}}\n</details>",
-  "pr_template": "- ${{TITLE}}\n   - PR: #${{NUMBER}}",
+  "template": "${{CHANGELOG}}\n\n<h2>😃 Others</h2>\n\n${{UNCATEGORIZED}}",
+  "pr_template": "- ${{TITLE}} (#${{NUMBER}})",
   "empty_template": "- no changes",
   "max_tags_to_fetch": 200,
   "max_pull_requests": 200,
