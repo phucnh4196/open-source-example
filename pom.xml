@@ -5,10 +5,16 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.atviettelsolutions</groupId>
     <artifactId>viettelsample</artifactId>
-    <version>12.0.0</version>
+    <version>13.0.0</version>
     <packaging>jar</packaging>
     <name>viettelsample</name>
     <description>Viettel Sample</description>
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>http://www.opensource.org/licenses/mit-license.php</url>
+        </license>
+    </licenses>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
