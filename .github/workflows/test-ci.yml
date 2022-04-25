@@ -57,4 +57,4 @@ jobs:
       - name: View context attributes
         uses: actions/github-script@v6
         with:
-          script: console.log(github)
+          script: console.log(github.checks.getSuite())
