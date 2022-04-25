@@ -12,8 +12,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: dorny/test-reporter@v1
+      env:
+        artifact: ${{ github.event.inputs.artifact }}
       with:
-        artifact: '${{ github.event.inputs.artifact }}'
+        artifact: $artifact
         name: Reporter
         path: '*.xml'
         reporter: java-junit
