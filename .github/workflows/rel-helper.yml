@@ -1,4 +1,4 @@
-name: Release Helper
+name: Release Action
 
 on:
   push:
