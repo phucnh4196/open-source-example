@@ -43,7 +43,8 @@ jobs:
       - name: Report
         uses: dorny/test-reporter@v1
         with:
-          path: target/surefire-reports/*.xml
+          artifact: test-results
+          path: *.xml
           name: Reporter
           reporter: java-junit
           fail-on-error: false
