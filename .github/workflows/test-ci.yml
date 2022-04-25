@@ -35,7 +35,7 @@ jobs:
         path: target/surefire-reports/*.xml
     - name: Trigger test reporter 
       if: failure()
-      uses: ./.github/workflows/test-report
+      uses: ./.github/workflows/test-reporter.yml
       with:
         artifact: test-results
     - name: Code Coverage
