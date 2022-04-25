@@ -69,6 +69,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo
             })
-            const testResult = runInfo.jobs.filter(item => item.name === 'Unit test result')
+            console.log(runInfo)
+            const testResult = runInfo.filter(item => item.name === 'Unit test result')
             console.log(testResult.run_url)
 
