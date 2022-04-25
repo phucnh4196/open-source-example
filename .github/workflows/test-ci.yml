@@ -10,7 +10,9 @@ on:
  
 jobs:
   demo:
-    uses: phucnh4196/open-source-example/.github/workflows/test-reporter.yml@master
+    uses: ./.github/workflows/test-reporter.yml@master
+    with:
+      artifact: test-results
   handle:
     runs-on: ubuntu-latest
     steps:
