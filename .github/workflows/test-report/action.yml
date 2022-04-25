@@ -13,7 +13,7 @@ jobs:
     steps:
     - uses: dorny/test-reporter@v1
       with:
-        artifact: ${{ github.event.inputs.artifact }}
+        artifact: "${{ github.event.inputs.artifact }}"
         name: Reporter
         path: '*.xml'
         reporter: java-junit
