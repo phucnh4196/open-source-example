@@ -54,7 +54,7 @@ public class CustomerServiceTest {
         //
         // Given
         // 
-        Customer customer = new Customer("204", "John Do", "224B Bakerstreet");
+        Customer customer = new Customer("2045", "John Do", "224B Bakerstreet");
 
         doAnswer(new Answer<Customer>() {
             @Override
