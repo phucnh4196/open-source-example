@@ -3,10 +3,10 @@ name: Test CI
 on:
   pull_request:
     branches: 
-      - main
+      - ${secret.MAIN_BRANCH}
   push:
     branches:
-      - main
+      - ${secret.MAIN_BRANCH}
  
 jobs:
   build:
