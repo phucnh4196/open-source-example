@@ -15,7 +15,7 @@ jobs:
       env:
         artifact: ${{ github.event.inputs.artifact }}
       with:
-        artifact: $artifact
+        artifact: ${{ env.artifact }}
         name: Reporter
         path: '*.xml'
         reporter: java-junit
