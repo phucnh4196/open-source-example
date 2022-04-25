@@ -54,6 +54,7 @@ jobs:
           path: 'artifact/*.xml'
           reporter: java-junit
           fail-on-error: false
-    # uses: ./.github/workflows/test-reporter.yml
-    # with:
-    #   path: target/surefire-reports/*.xml
+      - name: View context attributes
+        uses: actions/github-script@v6
+        with:
+          script: console.log(context)
