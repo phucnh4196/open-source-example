@@ -48,6 +48,7 @@ jobs:
           name: test-results
           path: artifact
       - name: Report
+        id: reportAction
         uses: dorny/test-reporter@v1
         with:
           name: result
@@ -62,5 +63,6 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const suites = github.checks.getSuite()
+            const suites = `${{steps.reportAction.outputs.response}}`
             console.log(suites)
+
