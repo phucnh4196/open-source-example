@@ -33,7 +33,7 @@ jobs:
       if: failure()
       uses: ./.github/workflows/test-report
       with:
-        a: test-results
+        artifact: test-results
     - name: Code Coverage
       uses: codecov/codecov-action@v2
       with:
