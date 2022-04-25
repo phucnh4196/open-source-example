@@ -4,8 +4,8 @@ on:
   workflow_call:
     inputs:
       artifact:
-        - required: true
-        - type: string
+        required: true
+        type: string
 
 jobs:
   Report:
