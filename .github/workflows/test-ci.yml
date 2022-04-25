@@ -23,12 +23,12 @@ jobs:
     - name: Run test
       id: unitTest
       run: mvn test
-    # - name: Upload test report
-    #   if: failure()
-    #   uses: actions/upload-artifact@v2
-    #   with:
-    #     name: test-results
-    #     path: target/surefire-reports/*.xml
+    - name: Upload test report
+      if: failure()
+      uses: actions/upload-artifact@v2
+      with:
+        name: test-results
+        path: target/surefire-reports/*.xml
     - name: Code Coverage
       uses: codecov/codecov-action@v2
       with:
@@ -37,6 +37,7 @@ jobs:
         directory: ./target/site/jacoco/
   reporter:
     needs: [handle]
+    runs-on: ubuntu-latest
     if: always() && (needs.handle.result == 'failure')
     steps:
       - name: Report
