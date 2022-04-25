@@ -55,13 +55,14 @@ jobs:
           path: 'artifact/*.xml'
           reporter: java-junit
           fail-on-error: false
-      - name: View context attributes
-        uses: actions/github-script@v6
-        with:
-          script: console.log(github)
       - name: Suites
         uses: actions/github-script@v6
         with:
           script: |
-            core.info(`${{steps.reportAction.outputs.response}}`)
+            const suites = `${{steps.reportAction.outputs.response}}`
+            console.log(suites)
+      - name: View context attributes
+        uses: actions/github-script@v6
+        with:
+          script: console.log(github)
 
