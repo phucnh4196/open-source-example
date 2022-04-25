@@ -46,7 +46,7 @@ public class CustomerServiceTest {
     //     //
     //     // Then
     //     //
-    //     assertThat(address, is("47891_221B Bakerstreet"));
+    //     assertThat(address, is("478961_221B Bakerstreet"));
     // }
 
     @Test
