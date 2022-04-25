@@ -60,12 +60,13 @@ jobs:
         with:
           script: |
             console.log(context)
-      # - name: View context attributes
-      #   uses: actions/github-script@v6
-      #   with:
-      #     script: |
-      #       const result = core.checks.get({
-      #         check_run_id: 
-      #       })
-      #       console.log(github)
+      - name: View context attributes
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const result = await core.checks.get({
+              check_run_id: context.runId,
+              ...context.repository
+            })
+            console.log(result)
 
