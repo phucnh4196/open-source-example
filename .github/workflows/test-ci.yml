@@ -35,6 +35,35 @@ jobs:
         token: ${{ secrets.CODECOV_TOKEN }}
         files: jacoco.xml
         directory: ./target/site/jacoco/
+    - name: Notify pusher (Success)
+      if: github.event_name == 'push'
+      uses: dawidd6/action-send-mail@v3
+      with:
+        server_address: ${{ secrets.SMTP_HOST }}
+        server_port: ${{ secrets.SMTP_PORT }}
+        username: ${{ secrets.SMTP_USERNAME }}
+        password: ${{ secrets.SMTP_PASSWORD }}
+        subject: '⭐ [GITHUB BOT][SUCCESS] Push report'
+        from: Github Action Bot
+        to: ${{ secrets.SMTP_RECEIVER }}
+        body: |
+          Push created by ${{ github.event.pusher.name }} has been succeeded.
+          Detail: https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}
+    - name: Notify pusher (Failed)
+      if: failure() && github.event_name == 'push'
+      uses: dawidd6/action-send-mail@v3
+      with:
+        server_address: ${{ secrets.SMTP_HOST }}
+        server_port: ${{ secrets.SMTP_PORT }}
+        username: ${{ secrets.SMTP_USERNAME }}
+        password: ${{ secrets.SMTP_PASSWORD }}
+        subject: '🔥 [GITHUB BOT][FAILED] Push report'
+        from: Github Action Bot
+        to: ${{ secrets.SMTP_RECEIVER }}
+        body: |
+          Push created by ${{ github.event.pusher.name }} has been failed.
+          Reason: Something went wrong.
+          Detail: https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}
   Reporter:
     needs: [handle]
     runs-on: ubuntu-latest
@@ -56,7 +85,7 @@ jobs:
           reporter: java-junit
           fail-on-error: false
       - name: Get HTML result
-        if: github.event_name == 'push' && github.event.pusher.email
+        if: github.event_name == 'push'
         uses: actions/github-script@v6
         with:
           script: |
@@ -68,20 +97,27 @@ jobs:
             const testResult = runInfo.data.jobs.find(item => item.name === 'Unit test result')
             const htmlUrl = testResult.html_url
             core.exportVariable('htmlUrl', htmlUrl)
-      - name: Notify pusher
-        if: github.event_name == 'push' && github.event.pusher.email
+      - name: Notify pull request creator (Failed test)
+        if: github.event_name == 'pull_request'
+        uses: thollander/actions-comment-pull-request@v1
+        with:
+          message: |
+            ${{ env.htmlUrl }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Notify pusher (Failed test)
+        if: github.event_name == 'push'
         uses: dawidd6/action-send-mail@v3
-        env:
-          pusher: "::add-mask::${{ github.event.pusher.email }}"
         with:
           server_address: ${{ secrets.SMTP_HOST }}
           server_port: ${{ secrets.SMTP_PORT }}
           username: ${{ secrets.SMTP_USERNAME }}
           password: ${{ secrets.SMTP_PASSWORD }}
-          subject: '[ERROR] Push report (Unit test failed)'
+          subject: '🔥 [GITHUB BOT][FAILED] Push report (Unit test failed)'
           from: Github Action Bot
-          to: ${{ env.pusher }}
+          to: ${{ secrets.SMTP_RECEIVER }}
           body: |
-            Unit test report: ${{ env.htmlUrl }}
+            Push created by ${{ github.event.pusher.name }} has been failed.
+            Reason: Unit test failed.
+            Detail: ${{ env.htmlUrl }}
 
 
