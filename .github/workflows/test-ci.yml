@@ -23,12 +23,14 @@ jobs:
     - name: Run test
       id: unitTest
       run: mvn test
-    - uses: actions/upload-artifact@v2
+    - name: Upload test report
+      uses: actions/upload-artifact@v2
       if: ${{ steps.unitTest.outcome == 'failure' }}
       with:
         name: test-results
         path: target/surefire-reports/*.xml
-    - uses: ./.github/workflows/test-report
+    - name: Trigger test reporter 
+      uses: ./.github/workflows/test-report
       if: ${{ steps.unitTest.outcome == 'failure' }}
     - name: Code Coverage
       if: ${{ steps.unitTest.outcome == 'success' }}
