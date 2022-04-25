@@ -10,7 +10,7 @@ on:
  
 jobs:
   demo:
-    uses: ./.github/workflows/test-reporter.yml@master
+    uses: ./.github/workflows/test-reporter.yml
     with:
       artifact: test-results
   handle:
