@@ -25,15 +25,14 @@ jobs:
       run: mvn test
     - name: Upload test report
       uses: actions/upload-artifact@v2
-      if: ${{ steps.unitTest.outcome == 'failure' }}
+      if: failure()
       with:
         name: test-results
         path: target/surefire-reports/*.xml
     - name: Trigger test reporter 
       uses: ./.github/workflows/test-report
-      if: ${{ steps.unitTest.outcome == 'failure' }}
+      if: failure()
     - name: Code Coverage
-      if: ${{ steps.unitTest.outcome == 'success' }}
       uses: codecov/codecov-action@v2
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
