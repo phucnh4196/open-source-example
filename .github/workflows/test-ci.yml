@@ -50,11 +50,11 @@ jobs:
       - name: Report
         uses: dorny/test-reporter@v1
         with:
-          name: Reporter
+          name: result
           path: 'artifact/*.xml'
           reporter: java-junit
           fail-on-error: false
       - name: View context attributes
         uses: actions/github-script@v6
         with:
-          script: console.log(context)
+          script: console.log(github)
