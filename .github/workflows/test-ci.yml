@@ -55,9 +55,17 @@ jobs:
           path: 'artifact/*.xml'
           reporter: java-junit
           fail-on-error: false
-      - run: echo ${{steps.reportAction.outputs}}
       - name: View context attributes
         uses: actions/github-script@v6
         with:
-          script: console.log(github)
+          script: |
+            console.log(context)
+      # - name: View context attributes
+      #   uses: actions/github-script@v6
+      #   with:
+      #     script: |
+      #       const result = core.checks.get({
+      #         check_run_id: 
+      #       })
+      #       console.log(github)
 
