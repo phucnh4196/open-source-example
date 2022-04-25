@@ -9,10 +9,6 @@ on:
       - master
  
 jobs:
-  demo:
-    uses: ./.github/workflows/test-reporter.yml
-    with:
-      artifact: test-results
   handle:
     runs-on: ubuntu-latest
     steps:
@@ -33,14 +29,15 @@ jobs:
       with:
         name: test-results
         path: target/surefire-reports/*.xml
-    - name: Trigger test reporter 
-      if: failure()
-      uses: ./.github/workflows/test-reporter.yml
-      with:
-        artifact: test-results
     - name: Code Coverage
       uses: codecov/codecov-action@v2
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
         files: jacoco.xml
         directory: ./target/site/jacoco/
+  reporter:
+    needs: [handle]
+    if: always() && (needs.handle.result == 'failure')
+    uses: ./.github/workflows/test-reporter.yml
+    with:
+      artifact: test-results
