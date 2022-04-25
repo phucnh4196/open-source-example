@@ -80,11 +80,11 @@ jobs:
         id: reportAction
         uses: dorny/test-reporter@v1
         with:
-          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           name: Unit test result
           path: 'artifact/*.xml'
           reporter: java-junit
           fail-on-error: false
+          token: '${{ secrets.PERSONAL_ACCESS_TOKEN }}'
       - name: Get HTML result
         if: github.event_name == 'push'
         uses: actions/github-script@v6
