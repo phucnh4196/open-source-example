@@ -48,13 +48,13 @@ public class CustomerServiceTest {
     //     //
     //     assertThat(address, is("47891_221B Bakerstreet"));
     // }
- 
+
     @Test
     public void testPLZAddressCombinationIncludingHostValue() {
         //
         // Given
         // 
-        Customer customer = new Customer("2045", "John Do", "224B Bakerstreet");
+        Customer customer = new Customer("204", "John Do", "224B Bakerstreet");
 
         doAnswer(new Answer<Customer>() {
             @Override
@@ -66,7 +66,7 @@ public class CustomerServiceTest {
             }
         }).when(hostService).expand(any(Customer.class));
 
-        when(addressService.getPLZForCustomer(customer)).thenReturn(478912);
+        when(addressService.getPLZForCustomer(customer)).thenReturn(47891);
         doNothing().when(addressService).updateExternalSystems(customer);
 
         // 
