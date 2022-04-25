@@ -11,7 +11,9 @@ on:
 jobs:
   Handle:
     runs-on: ubuntu-latest
-    permissions: write-all
+    permissions:
+      id-token: write
+      contents: read
     steps:
     - name: Checkout
       uses: actions/checkout@v2
@@ -68,7 +70,9 @@ jobs:
   Reporter:
     needs: [handle]
     runs-on: ubuntu-latest
-    permissions: write-all
+    permissions:
+      id-token: write
+      contents: read
     if: always() && (needs.handle.result == 'failure')
     steps:
       - name: Checkout
