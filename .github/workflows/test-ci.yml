@@ -40,6 +40,10 @@ jobs:
     runs-on: ubuntu-latest
     if: always() && (needs.handle.result == 'failure')
     steps:
+      - name: Download test report
+        uses: actions/download-artifact@master
+        with:
+          name: test-results
       - name: Report
         uses: dorny/test-reporter@v1
         with:
