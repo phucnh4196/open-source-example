@@ -3,7 +3,7 @@ name: 'Test Reporter'
 on: 
   workflow_call:
     inputs:
-      artifact:
+      a:
         required: true
         type: string
 
@@ -13,7 +13,7 @@ jobs:
     steps:
     - uses: dorny/test-reporter@v1
       with:
-        artifact: ${{ inputs.artifact }}
+        artifact: ${{ inputs.a }}
         name: Reporter
         path: '*.xml'
         reporter: java-junit
