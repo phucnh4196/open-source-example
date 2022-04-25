@@ -13,7 +13,7 @@ jobs:
     steps:
     - uses: dorny/test-reporter@v1
       env:
-        artifact: ${{ github.event.inputs.artifact }}
+        artifact: ${{ inputs.artifact }}
       with:
         artifact: ${{ env.artifact }}
         name: Reporter
