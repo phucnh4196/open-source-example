@@ -30,7 +30,7 @@ jobs:
         name: test-results
         path: target/surefire-reports/*.xml
     - name: Trigger test reporter 
-      uses: ./.github/workflows/test-report.yml
+      uses: ./.github/workflows/test-report
       if: failure()
     - name: Code Coverage
       uses: codecov/codecov-action@v2
