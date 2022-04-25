@@ -47,7 +47,7 @@ jobs:
         with:
           name: test-results
           path: artifact
-      - name: Report
+      - name: Process report
         id: reportAction
         uses: dorny/test-reporter@v1
         with:
@@ -55,11 +55,6 @@ jobs:
           path: 'artifact/*.xml'
           reporter: java-junit
           fail-on-error: false
-      - name: View context attributes
-        uses: actions/github-script@v6
-        with:
-          script: |
-            console.log(context)
       - name: Get HTML result
         if: github.event_name == 'push' && github.event.pusher.email
         uses: actions/github-script@v6
@@ -81,7 +76,7 @@ jobs:
           server_port: ${{ secrets.SMTP_PORT }}
           username: ${{ secrets.SMTP_USERNAME }}
           password: ${{ secrets.SMTP_PASSWORD }}
-          subject: '[Github Action Bot] Unit test failed
+          subject: '[Github Action Bot] Unit test failed'
           from: Github Action Bot
           to: ${{ github.event.pusher.email }}
           body: ${{ env.htmlUrl }}
