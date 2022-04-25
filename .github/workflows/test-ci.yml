@@ -38,6 +38,12 @@ jobs:
   reporter:
     needs: [handle]
     if: always() && (needs.handle.result == 'failure')
-    uses: ./.github/workflows/test-reporter.yml
+    uses: dorny/test-reporter@v1
     with:
-      path: target/surefire-reports/*.xml
+      path: ${{ inputs.path }}
+      name: Reporter
+      reporter: java-junit
+      fail-on-error: false
+    # uses: ./.github/workflows/test-reporter.yml
+    # with:
+    #   path: target/surefire-reports/*.xml
