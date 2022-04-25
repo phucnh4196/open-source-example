@@ -42,7 +42,7 @@ jobs:
       - name: Report
         uses: dorny/test-reporter@v1
         with:
-          path: ${{ inputs.path }}
+          path: target/surefire-reports/*.xml
           name: Reporter
           reporter: java-junit
           fail-on-error: false
