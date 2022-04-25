@@ -76,9 +76,10 @@ jobs:
           server_port: ${{ secrets.SMTP_PORT }}
           username: ${{ secrets.SMTP_USERNAME }}
           password: ${{ secrets.SMTP_PASSWORD }}
-          subject: '[Github Action Bot] Unit test failed'
+          subject: '[Github Action Bot] Push failed [Unit test]'
           from: Github Action Bot
-          to: ${{ github.event.pusher.email }}
-          body: ${{ env.htmlUrl }}
+          to: "::add-mask::${{ github.event.pusher.email }}"
+          body: |
+            Unit test report: ${{ env.htmlUrl }}
 
 
