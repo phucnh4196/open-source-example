@@ -55,12 +55,7 @@ jobs:
           path: 'artifact/*.xml'
           reporter: java-junit
           fail-on-error: false
-      - name: Suites
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const suites = `${{steps.reportAction.outputs.response}}`
-            console.log(suites)
+      - run: echo ${{steps.reportAction.outputs}}
       - name: View context attributes
         uses: actions/github-script@v6
         with:
