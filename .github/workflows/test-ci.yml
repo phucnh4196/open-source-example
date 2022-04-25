@@ -44,7 +44,7 @@ jobs:
         uses: dorny/test-reporter@v1
         with:
           artifact: test-results
-          path: *.xml
+          path: '*.xml'
           name: Reporter
           reporter: java-junit
           fail-on-error: false
