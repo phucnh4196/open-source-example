@@ -64,8 +64,8 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const result = await github.rest.checks.get({
-              check_run_id: context.runId,
+            const result = await github.rest.checks.getSuite({
+              check_suite_id: context.runId,
               owner: context.repo.owner,
               repo: context.repo.repo
             })
