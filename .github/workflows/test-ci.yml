@@ -71,14 +71,16 @@ jobs:
       - name: Notify pusher
         if: github.event_name == 'push' && github.event.pusher.email
         uses: dawidd6/action-send-mail@v3
+        env:
+          pusher: "::add-mask::${{ github.event.pusher.email }}"
         with:
           server_address: ${{ secrets.SMTP_HOST }}
           server_port: ${{ secrets.SMTP_PORT }}
           username: ${{ secrets.SMTP_USERNAME }}
           password: ${{ secrets.SMTP_PASSWORD }}
-          subject: '[Github Action Bot] Push failed [Unit test]'
+          subject: '[ERROR] Push report (Unit test failed)'
           from: Github Action Bot
-          to: "::add-mask::${{ github.event.pusher.email }}"
+          to: ${{ env.pusher }}
           body: |
             Unit test report: ${{ env.htmlUrl }}
 
