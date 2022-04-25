@@ -3,10 +3,10 @@ name: Test CI
 on:
   pull_request:
     branches: 
-      - master
+      - ${{ secret.MAIN_BRANCH }}
   push:
     branches:
-      - master
+      - ${{ secret.MAIN_BRANCH }}
  
 jobs:
   build:
@@ -24,12 +24,12 @@ jobs:
       id: unitTest
       run: mvn test
     - uses: actions/upload-artifact@v2
-      if: step.unitTest.outcome == 'failure'
+      if: ${{ step.unitTest.outcome == 'failure' }}
       with:
         name: test-results
         path: target/surefire-reports/*.xml
     - name: Code Coverage
-      if: step.unitTest.outcome == 'success'
+      if: ${{ step.unitTest.outcome == 'success' }}
       uses: codecov/codecov-action@v2
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
