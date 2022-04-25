@@ -63,6 +63,5 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const suites = `${{steps.reportAction.outputs.response}}`
-            console.log(suites)
+            core.info(`${{steps.reportAction.outputs.response}}`)
 
