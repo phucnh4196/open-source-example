@@ -10,7 +10,7 @@ on:
  
 jobs:
   demo:
-    uses: phucnh4196/open-source-example/.github/workflows/test-reporter.yml@main
+    uses: phucnh4196/open-source-example/.github/workflows/test-reporter.yml@master
   handle:
     runs-on: ubuntu-latest
     steps:
