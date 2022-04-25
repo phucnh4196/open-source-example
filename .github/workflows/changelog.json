@@ -20,7 +20,7 @@
   "max_pull_requests": 200,
   "max_back_track_time_days": 365,
   "base_branches": [
-    "master"
+    "main"
   ],
   "transformers": []
 }
