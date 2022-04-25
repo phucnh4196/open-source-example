@@ -81,9 +81,9 @@ jobs:
           server_port: ${{ secrets.SMTP_PORT }}
           username: ${{ secrets.SMTP_USERNAME }}
           password: ${{ secrets.SMTP_PASSWORD }}
-          subject: 'Notify unit test failed'
-          from: Github Bot
-          to: phucnh4196@gmail.com
+          subject: '[Github Action Bot] Unit test failed
+          from: Github Action Bot
+          to: ${{ github.event.pusher.email }}
           body: ${{ env.htmlUrl }}
 
 
