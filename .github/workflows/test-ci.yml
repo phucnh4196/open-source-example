@@ -67,10 +67,6 @@ jobs:
   Reporter:
     needs: [handle]
     runs-on: ubuntu-latest
-    permissions:
-      id-token: write
-      contents: read
-      checks: write
     if: always() && (needs.handle.result == 'failure')
     steps:
       - name: Checkout
@@ -84,6 +80,7 @@ jobs:
         id: reportAction
         uses: dorny/test-reporter@v1
         with:
+          token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
           name: Unit test result
           path: 'artifact/*.xml'
           reporter: java-junit
