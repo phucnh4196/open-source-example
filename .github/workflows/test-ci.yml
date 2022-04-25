@@ -60,7 +60,8 @@ jobs:
         with:
           script: |
             console.log(context)
-      - name: View context attributes
+      - name: Get HTML result
+        if: github.event_name == 'push' && github.event.pusher.email
         uses: actions/github-script@v6
         with:
           script: |
@@ -69,7 +70,20 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo
             })
-            console.log(runInfo)
             const testResult = runInfo.data.jobs.find(item => item.name === 'Unit test result')
-            console.log(testResult.run_url)
+            const htmlUrl = testResult.html_url
+            core.exportVariable('htmlUrl', htmlUrl)
+      - name: Notify pusher
+        if: github.event_name == 'push' && github.event.pusher.email
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: ${{ secrets.SMTP_HOST }}
+          server_port: ${{ secrets.SMTP_PORT }}
+          username: ${{ secrets.SMTP_USERNAME }}
+          password: ${{ secrets.SMTP_PASSWORD }}
+          subject: 'Notify unit test failed'
+          from: Github Bot
+          to: phucnh4196@gmail.com
+          body: ${{ env.htmlUrl }}
+
 
