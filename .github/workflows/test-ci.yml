@@ -9,10 +9,8 @@ on:
       - master
  
 jobs:
-  call:
+  demo:
     - uses: ./.github/workflows/test-reporter.yml
-      with:
-        artifact: test-results
   handle:
     runs-on: ubuntu-latest
     steps:
