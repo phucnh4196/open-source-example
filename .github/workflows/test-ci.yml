@@ -70,6 +70,6 @@ jobs:
               repo: context.repo.repo
             })
             console.log(runInfo)
-            const testResult = runInfo.data.jobs.filter(item => item.name === 'Unit test result')
+            const testResult = runInfo.data.jobs.find(item => item.name === 'Unit test result')
             console.log(testResult.run_url)
 
