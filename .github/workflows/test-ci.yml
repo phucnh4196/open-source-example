@@ -9,7 +9,7 @@ on:
       - master
  
 jobs:
-  handle:
+  Handle:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
@@ -35,7 +35,7 @@ jobs:
         token: ${{ secrets.CODECOV_TOKEN }}
         files: jacoco.xml
         directory: ./target/site/jacoco/
-  reporter:
+  Reporter:
     needs: [handle]
     runs-on: ubuntu-latest
     if: always() && (needs.handle.result == 'failure')
@@ -51,7 +51,7 @@ jobs:
         id: reportAction
         uses: dorny/test-reporter@v1
         with:
-          name: result
+          name: Unit test result
           path: 'artifact/*.xml'
           reporter: java-junit
           fail-on-error: false
@@ -64,10 +64,11 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const result = await github.rest.actions.listJobsForWorkflowRun({
+            const runInfo = await github.rest.actions.listJobsForWorkflowRun({
               run_id: context.runId,
               owner: context.repo.owner,
               repo: context.repo.repo
             })
-            console.log(result)
+            const testResult = runInfo.jobs.filter(item => item.name === 'Unit test result')
+            console.log(testResult.run_url)
 
