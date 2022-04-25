@@ -40,17 +40,18 @@ jobs:
     runs-on: ubuntu-latest
     if: always() && (needs.handle.result == 'failure')
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Download test report
-        uses: actions/download-artifact@master
-        with:
-          name: test-results
+      # - name: Checkout
+      #   uses: actions/checkout@v2
+      # - name: Download test report
+      #   uses: actions/download-artifact@master
+      #   with:
+      #     name: test-results
       - name: Report
         uses: dorny/test-reporter@v1
         with:
-          path: 'target/surefire-reports/*.xml'
+          artifact: test-results
           name: Reporter
+          path: '*.xml'
           reporter: java-junit
           fail-on-error: false
     # uses: ./.github/workflows/test-reporter.yml
