@@ -43,15 +43,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Download test report
-        uses: actions/download-artifact@master
+        uses: actions/download-artifact@v2
         with:
           name: test-results
+          path: artifact
       - name: Report
         uses: dorny/test-reporter@v1
         with:
-          artifact: test-results
           name: Reporter
-          path: '*.xml'
+          path: 'artifact/*.xml'
           reporter: java-junit
           fail-on-error: false
     # uses: ./.github/workflows/test-reporter.yml
