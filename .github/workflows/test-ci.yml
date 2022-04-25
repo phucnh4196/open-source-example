@@ -24,12 +24,12 @@ jobs:
       id: unitTest
       run: mvn test
     - uses: actions/upload-artifact@v2
-      if: ${{ github.step.unitTest.outcome == 'failure' }}
+      if: ${{ steps.unitTest.outcome == 'failure' }}
       with:
         name: test-results
         path: target/surefire-reports/*.xml
     - name: Code Coverage
-      if: ${{ github.step.unitTest.outcome == 'success' }}
+      if: ${{ steps.unitTest.outcome == 'success' }}
       uses: codecov/codecov-action@v2
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
