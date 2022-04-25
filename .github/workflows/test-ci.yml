@@ -28,6 +28,8 @@ jobs:
       with:
         name: test-results
         path: target/surefire-reports/*.xml
+    - uses: ./.github/workflows/test-report
+      if: ${{ steps.unitTest.outcome == 'failure' }}
     - name: Code Coverage
       if: ${{ steps.unitTest.outcome == 'success' }}
       uses: codecov/codecov-action@v2
