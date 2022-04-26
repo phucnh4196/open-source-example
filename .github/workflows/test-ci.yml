@@ -13,14 +13,14 @@ jobs:
     steps:
       - name: Prepare Changelog Config
         run: echo |
-          1 \
-          2 \
-          3 \
+          '1
+          2
+          3' 
       - name: Prepare Changelog Config
         run: echo |
-          1 \
-          2 \
-          3 > changelog.json
+          '1
+          2
+          3' > changelog.json
       - run: echo '${{ toJson(github) }}'
       - run: echo '${{ github.base_ref }}'
       - run: echo '${{ github.ref_name }}'
