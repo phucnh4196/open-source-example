@@ -6,7 +6,6 @@ on:
       artifact:
         required: true
         type: string
-
  
 jobs:
   Reporter:
