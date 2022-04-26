@@ -1,4 +1,4 @@
-name: 'PR Reporter'
+name: 'Clean'
 
 on:
   workflow_run:
@@ -15,7 +15,7 @@ jobs:
         with:
           script: |
             await github.rest.actions.deleteWorkflowRunLogs({
-              run_id: github.event.workflow_run.workflow.id,
+              run_id: github.event.workflow_run.id,
               owner: context.repo.owner,
               repo: context.repo.repo
             })
