@@ -9,7 +9,7 @@ on:
       - master
  
 jobs:
-  Handle:
+  handle:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
@@ -65,7 +65,7 @@ jobs:
           Reason: Something went wrong.
           Detail: https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}
   Reporter:
-    needs: [Handle]
+    needs: [handle]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
