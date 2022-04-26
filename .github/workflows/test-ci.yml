@@ -18,7 +18,7 @@ jobs:
       uses: actions/github-script@v6
       with:
         script: |
-          const runInfo = await github.rest.actions.listJobsForWorkflowRun({
+          const runInfo = await github.rest.checks.listForRef({
             ref: context.ref,
             owner: context.repo.owner,
             repo: context.repo.repo
