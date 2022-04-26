@@ -38,3 +38,4 @@ jobs:
         token: ${{ secrets.CODECOV_TOKEN }}
         files: jacoco.xml
         directory: ./target/site/jacoco/
+        
