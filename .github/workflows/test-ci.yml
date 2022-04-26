@@ -15,7 +15,7 @@ jobs:
         uses: mkungla/actions-set-text-output@v1
         id: template
         with:
-          text: $(cat .github/workflows/changelog.template.json)
+          text: $(cat ./.github/workflows/changelog.template.json)
       - run: echo "${{ steps.template.outputs.value }}"
       - run: echo '${{ toJson(github) }}'
       - run: echo '${{ github.base_ref }}'
