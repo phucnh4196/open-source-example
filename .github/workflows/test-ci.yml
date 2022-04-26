@@ -19,7 +19,10 @@ jobs:
               ref: context.ref,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              workflow_id: 'test-reporter-pr.yml'
+              workflow_id: 'test-reporter-pr.yml',
+              inputs: {
+                something: false
+              }
             })
             console.log(result)
       - name: Check
