@@ -10,7 +10,7 @@ jobs:
     env:
       isMain: ${{ github.base_ref == secrets.MAIN_BRANCH || github.event.pull_request.base.ref == secrets.MAIN_BRANCH }}
     steps:
-      - run: echo ${{ toJson(github) }}
+      - run: echo '${{ toJson(github) }}'
       - name: Check
         id: main
         run: echo '::set-output name=valid::${{ env.isMain }}'
