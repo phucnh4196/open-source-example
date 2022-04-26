@@ -14,16 +14,6 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: Demo
-      uses: actions/github-script@v6
-      with:
-        script: |
-          const runInfo = await github.rest.actions.listJobsForWorkflowRun({
-            ref: context.ref,
-            owner: context.repo.owner,
-            repo: context.repo.repo
-          })
-          console.log(runInfo)
     - name: Set up JDK 11
       uses: actions/setup-java@v3
       with:
