@@ -10,9 +10,9 @@ jobs:
     env:
       isMain: ${{ github.base_ref == secrets.MAIN_BRANCH || github.event.pull_request.base.ref == secrets.MAIN_BRANCH }}
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - id: main
+      - run: echo ${{ toJson(github) }}
+      - name: Check
+        id: main
         run: echo '::set-output name=valid::${{ env.isMain }}'
   Handle:
     needs: [Check]
