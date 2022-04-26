@@ -11,6 +11,8 @@ jobs:
       # isMain: ${{ (secrets.MAIN_BRANCH == github.ref_name) || (secrets.MAIN_BRANCH == github.base_ref) }}
       isMain: ${{ github.base_ref == secrets.MAIN_BRANCH }}
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
       - name: test changelog
         uses: mkungla/actions-set-text-output@v1
         id: template
