@@ -4,6 +4,7 @@ on: [pull_request, push]
  
 jobs:
   Check:
+    runs-on: ubuntu-latest
     outputs:
       main-branch: ${{ steps.main.outputs.secret }}
     steps:
