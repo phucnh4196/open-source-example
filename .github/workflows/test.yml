@@ -22,10 +22,11 @@ jobs:
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
     - uses: actions/github-script@v6
-      with: |
-        const runInfo = await github.rest.actions.deleteWorkflowRun({
-          run_id: context.runId,
-          owner: context.repo.owner,
-          repo: context.repo.repo
-        })
+      with: 
+        script: |
+          const runInfo = await github.rest.actions.deleteWorkflowRun({
+            run_id: context.runId,
+            owner: context.repo.owner,
+            repo: context.repo.repo
+          })
         
