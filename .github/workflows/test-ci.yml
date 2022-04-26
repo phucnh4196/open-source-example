@@ -10,7 +10,7 @@ jobs:
       - id: main
         run: echo '::set-output name=secret::${{secrets.MAIN_BRANCH}}'
   Handle:
-    needs: [Check],
+    needs: ['Check'],
     if: github.ref_name == needs.Check.outputs.main-branch || github.base_ref == needs.Check.outputs.main-branch
     runs-on: ubuntu-latest
     steps:
