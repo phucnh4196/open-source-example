@@ -47,7 +47,7 @@ jobs:
             repo: context.repo.repo,
             workflow_id: 'clean.yml',
             inputs: {
-              something: false
+              something: 'false'
             }
           })
           console.log(result)
