@@ -1,10 +1,16 @@
 name: 'Clean'
 
 on:
-  workflow_run:
-    workflows: ['Unit Test Reporter']
-    types:
-      - completed
+  workflow_dispatch:
+    inputs:
+      something:
+        type: string
+
+# on:
+#   workflow_run:
+#     workflows: ['Unit Test Reporter']
+#     types:
+#       - completed
 jobs:
   Delete:
     env:
