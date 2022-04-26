@@ -13,12 +13,24 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: test changelog
+      - name: Load changelog template
         uses: mkungla/actions-set-text-output@v1
         id: template
         with:
           text: $(cat ./.github/workflows/changelog.template.json)
-      - run: echo "${{ steps.template.outputs.value }}"
+      - name: Create changelog template
+        run: echo "${{ steps.template.outputs.value }}" > ./.github/workflows/changelog.json
+      - name: Update changelog template
+        uses: jossef/action-set-json-field@v1
+        with:
+          file: ./.github/workflows/changelog.json
+          field: base_branches
+          value: '["something"]'
+       - name: Upload
+        uses: actions/upload-artifact@v2
+        with:
+          name: test
+          path: ./.github/workflows/changelog.json
       - run: echo '${{ toJson(github) }}'
       - run: echo '${{ github.base_ref }}'
       - run: echo '${{ github.ref_name }}'
