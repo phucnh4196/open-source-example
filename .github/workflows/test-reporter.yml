@@ -55,36 +55,3 @@
 #             Push created by ${{ github.event.pusher.name }} has been failed.
 #             Reason: Unit test failed.
 #             Detail: ${{ env.htmlUrl }}
-
-name: 'Test Reporter'
-
-on:
-  workflow_run:
-    workflows: ['Test CI']
-    types:
-      - completed
-on: workflow_call
-jobs:
-  Create_Report:
-    runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
-    steps:
-    - uses: dorny/test-reporter@v1
-      with:
-        artifact: test-results
-        name: Reporter
-        path: '*.xml'
-        reporter: java-junit
-        fail-on-error: false
-  End:
-    runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    steps:
-    - uses: actions/github-script@v6
-      with: |
-        const runInfo = await github.rest.actions.deleteWorkflowRun({
-          run_id: context.runId,
-          owner: context.repo.owner,
-          repo: context.repo.repo
-        })
-        
