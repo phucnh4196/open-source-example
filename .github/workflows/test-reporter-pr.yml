@@ -1,10 +1,12 @@
 name: 'Unit Test Reporter'
 
-on: workflow_dispatch
-  # workflow_run:
-  #   workflows: ['Unit Test & Coverage']
-  #   types:
-  #     - completed
+on: 
+  workflow_dispatch:
+    inputs:
+      something:
+        description: 'Test scenario tags'
+        required: false 
+        type: boolean
 jobs:
   Check:
     runs-on: ubuntu-latest
