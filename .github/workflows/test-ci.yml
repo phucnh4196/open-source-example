@@ -8,7 +8,7 @@ jobs:
     outputs:
       isMain: ${{ steps.main.outputs.valid }}
     env:
-      isMain: ${{ github.ref_name == secrets.MAIN_BRANCH }}
+      isMain: ${{ github.ref_name == secrets.MAIN_BRANCH || github.event_name == 'pull_request' }}
     steps:
       - name: Check
         id: main

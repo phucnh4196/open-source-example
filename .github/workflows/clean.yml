@@ -2,7 +2,7 @@
 
 # on:
 #   workflow_run:
-#     workflows: ['Unit Test & Coverage', 'Unit Test Reporter']
+#     workflows: ['Unit Test Reporter']
 #     types:
 #       - completed
 # jobs:
