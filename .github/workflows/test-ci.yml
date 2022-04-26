@@ -68,9 +68,6 @@ jobs:
     needs: [Handle]
     if: always() && needs.Handle.result == 'failure'
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        run: echo ${{ toJSON(needs) }}
-    # uses: ./.github/workflows/test-reporter.yml
-    # with:
-    #   artifact: test-results
+    uses: ./.github/workflows/test-reporter.yml
+    with:
+      artifact: test-results
