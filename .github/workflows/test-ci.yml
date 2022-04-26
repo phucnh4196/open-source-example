@@ -9,7 +9,7 @@ on:
       - master
  
 jobs:
-  handle:
+  Handle:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
@@ -65,12 +65,12 @@ jobs:
           Reason: Something went wrong.
           Detail: https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}
   Reporter:
-    needs: [handle]
+    needs: [Handle]
+    if: needs.Handle.result == 'failure'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         run: echo ${{ toJSON(needs) }}
-    # if: needs.Handle.result == 'failure'
     # uses: ./.github/workflows/test-reporter.yml
     # with:
     #   artifact: test-results
