@@ -10,21 +10,6 @@ jobs:
     env:
       isMain: ${{ github.ref_name == secrets.MAIN_BRANCH || github.event_name == 'pull_request' }}
     steps:
-      - name: Dispatch
-        if: always()
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const result = await github.rest.actions.createWorkflowDispatch({
-              ref: context.ref,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              workflow_id: 'test-reporter-pr.yml',
-              inputs: {
-                something: "false"
-              }
-            })
-            console.log(result)
       - name: Check
         id: main
         run: echo '::set-output name=valid::${{ env.isMain }}'
