@@ -1,8 +1,8 @@
-name: 'PR Reporter'
+name: 'Unit Test Reporter'
 
 on:
   workflow_run:
-    workflows: ['Test CI']
+    workflows: ['Unit Test & Coverage']
     types:
       - completed
 jobs:

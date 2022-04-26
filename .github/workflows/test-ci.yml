@@ -1,17 +1,12 @@
-name: Test CI
+name: Unit Test & Coverage
 
-on:
-  pull_request:
-    branches: 
-      - master
-  push:
-    branches:
-      - master
+on: [pull_request, push]
  
 jobs:
   Handle:
     runs-on: ubuntu-latest
     steps:
+    - run: echo "${{ toJSON(github) }}"
     - name: Checkout
       uses: actions/checkout@v2
     - name: Set up JDK 11
@@ -35,42 +30,3 @@ jobs:
         token: ${{ secrets.CODECOV_TOKEN }}
         files: jacoco.xml
         directory: ./target/site/jacoco/
-    - name: Notify pusher (Success)
-      if: github.event_name == 'push'
-      uses: dawidd6/action-send-mail@v3
-      with:
-        server_address: ${{ secrets.SMTP_HOST }}
-        server_port: ${{ secrets.SMTP_PORT }}
-        username: ${{ secrets.SMTP_USERNAME }}
-        password: ${{ secrets.SMTP_PASSWORD }}
-        subject: '⭐ [GITHUB BOT][SUCCESS] Push report'
-        from: Github Action Bot
-        to: ${{ secrets.SMTP_RECEIVER }}
-        body: |
-          Push created by ${{ github.event.pusher.name }} has been succeeded.
-          Detail: https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}
-    - name: Notify pusher (Failed, Other cases)
-      if: failure() && github.event_name == 'push' && steps.unitTest.outcome != 'failure'
-      uses: dawidd6/action-send-mail@v3
-      with:
-        server_address: ${{ secrets.SMTP_HOST }}
-        server_port: ${{ secrets.SMTP_PORT }}
-        username: ${{ secrets.SMTP_USERNAME }}
-        password: ${{ secrets.SMTP_PASSWORD }}
-        subject: '🔥 [GITHUB BOT][FAILED] Push report'
-        from: Github Action Bot
-        to: ${{ secrets.SMTP_RECEIVER }}
-        body: |
-          Push created by ${{ github.event.pusher.name }} has been failed.
-          Reason: Something went wrong.
-          Detail: https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}
-  Push_Reporter:
-    needs: [Handle]
-    if: failure() && needs.Handle.result == 'failure' && github.event_name == 'push'
-    uses: ./.github/workflows/test-reporter-push.yml
-    secrets:
-      SMTP_HOST: ${{ secrets.SMTP_HOST }}
-      SMTP_PORT: ${{ secrets.SMTP_PORT }}
-      SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
-      SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
-      SMTP_RECEIVER: ${{ secrets.SMTP_RECEIVER }}

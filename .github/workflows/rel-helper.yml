@@ -23,6 +23,8 @@ jobs:
           script: |
             const tag = context.ref.replace('refs\/tags\/', '')
             core.exportVariable('tag', tag)
+    - name: Run test
+      run: mvn test
     - name: Publish
       run: |
         mvn deploy \

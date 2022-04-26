@@ -2,14 +2,13 @@ name: 'Clean'
 
 on:
   workflow_run:
-    workflows: ['Test CI', 'PR Reporter']
+    workflows: ['Unit Test & Coverage', 'Unit Test Reporter']
     types:
       - completed
 jobs:
   Delete:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "${{ toJSON(github.event) }}"
       - name: Demo
         uses: actions/github-script@v6
         with:
