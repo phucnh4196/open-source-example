@@ -66,8 +66,7 @@ jobs:
           Detail: https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}
   Reporter:
     needs: [Handle]
-    if: needs.Handle.result == 'failure'
-    run: echo "123"
-    # uses: ./.github/workflows/test-reporter.yml
-    # with:
-    #   artifact: test-results
+    # if: needs.Handle.result == 'failure'
+    uses: ./.github/workflows/test-reporter.yml
+    with:
+      artifact: test-results
