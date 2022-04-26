@@ -68,3 +68,9 @@ jobs:
     needs: [Handle]
     if: always() && needs.Handle.result == 'failure' && github.event_name == 'push'
     uses: ./.github/workflows/test-reporter-push.yml
+    with:
+      SMTP_HOST: ${{ secrets.SMTP_HOST }}
+      SMTP_PORT: ${{ secrets.SMTP_PORT }}
+      SMTP_USERNAME: ${{ secrets.SMTP_USERNAME }}
+      SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+      SMTP_RECEIVER: ${{ secrets.SMTP_RECEIVER }}

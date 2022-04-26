@@ -1,6 +1,18 @@
 name: Push Reporter
 
-on: workflow_call
+on: 
+  workflow_call:
+    secrets:
+      SMTP_HOST:
+        required: true
+      SMTP_PORT:
+        required: true
+      SMTP_USERNAME:
+        required: true
+      SMTP_PASSWORD:
+        required: true
+      SMTP_RECEIVER:
+        required: true
  
 jobs:
   Reporter:
