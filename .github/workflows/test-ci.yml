@@ -12,9 +12,10 @@ jobs:
         run: echo '::set-output name=valid::${{secrets.MAIN_BRANCH == github.ref_name || secrets.MAIN_BRANCH == github.base_ref }}'
   Handle:
     needs: [Check]
-    if: needs.Check.outputs.isMain == 'true'
+    # if: needs.Check.outputs.isMain == 'true'
     runs-on: ubuntu-latest
     steps:
+    - run: echo '${{ toJson(github) }}'
     - name: Checkout
       uses: actions/checkout@v2
     - name: Set up JDK 11
