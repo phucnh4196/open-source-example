@@ -6,9 +6,17 @@ on:
     types:
       - completed
 jobs:
+  Check:
+    runs-on: ubuntu-latest
+    outputs:
+      isMain: ${{ steps.main.outputs.valid }}
+    steps:
+      - id: main
+        run: echo '::set-output name=valid::${{ secrets.MAIN_BRANCH == github.ref_name }}'
   Create_Report:
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+    needs: [Check]
+    if: needs.Check.outputs.isMain == 'true'
     steps:
     - run: echo '${{ toJson(github) }}'
     - uses: dorny/test-reporter@v1
