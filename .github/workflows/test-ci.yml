@@ -8,9 +8,11 @@ jobs:
     outputs:
       isMain: ${{ steps.main.outputs.valid }}
     env:
-      isMain: ${{ github.base_ref == secrets.MAIN_BRANCH || github.event.pull_request.base.ref == secrets.MAIN_BRANCH }}
+      isMain: ${{ github.ref_name == secrets.MAIN_BRANCH || github.event.pull_request.base.ref == secrets.MAIN_BRANCH }}
     steps:
       - run: echo '${{ toJson(github) }}'
+      - run: echo '${{ github.event.pull_request.base.ref }}'
+      - run: echo '${{ github.event.pull_request.base.ref == secrets.MAIN_BRANCH }}'
       - name: Check
         id: main
         run: echo '::set-output name=valid::${{ env.isMain }}'
