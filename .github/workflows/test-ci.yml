@@ -49,6 +49,8 @@ jobs:
         body: |
           Push created by ${{ github.event.pusher.name }} has been succeeded.
           Detail: https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}
+    - name: Dump
+      run: echo '${{ toJson(steps) }}'
     - name: Notify pusher (Failed, Other cases)
       if: failure() && github.event_name == 'push' && steps.unitTest.outputs.status != 'failure'
       uses: dawidd6/action-send-mail@v3
