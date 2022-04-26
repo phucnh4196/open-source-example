@@ -3,9 +3,16 @@ name: Unit Test & Coverage
 on: [pull_request, push]
  
 jobs:
+  Check:
+    outputs:
+      main-branch: ${{ steps.main.outputs.secret }}
+    steps:
+      - id: main
+        run: echo '::set-output name=secret::${{secrets.MAIN_BRANCH}}'
   Handle:
+    needs: [Check],
+    if: github.ref_name == needs.Check.outputs.main-branch || github.base_ref == needs.Check.outputs.main-branch
     runs-on: ubuntu-latest
-    if: github.ref_name == ${{ secrets.MAIN_BRANCH }} || github.base_ref == ${{ secrets.MAIN_BRANCH }}
     steps:
     - name: Checkout
       uses: actions/checkout@v2
