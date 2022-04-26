@@ -10,10 +10,13 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       isPR: ${{ steps.main.outputs.valid }}
+    env:
+      isPR: ${{ github.event.workflow_run.conclusion == 'failure' || github.event.pull_request.base.ref == secrets.MAIN_BRANCH }}
     steps:
+      - run: echo '${{ github.ref_name }}'
       - run: echo '${{ toJson(github) }}'
       - id: main
-        run: echo '::set-output name=valid::${{ github.event.workflow_run.conclusion == 'failure' && secrets.MAIN_BRANCH == github.base_ref }}'
+        run: echo '::set-output name=valid::${{ env.PR }}'
   Create_Report:
     runs-on: ubuntu-latest
     needs: [Check]
