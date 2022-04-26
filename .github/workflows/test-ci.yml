@@ -6,7 +6,7 @@ jobs:
   Handle:
     runs-on: ubuntu-latest
     steps:
-    - run: echo "${{ toJSON(github) }}"
+    - run: echo "${{ github.base_ref }}"
     - name: Checkout
       uses: actions/checkout@v2
     - name: Set up JDK 11
