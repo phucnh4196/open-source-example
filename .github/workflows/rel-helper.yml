@@ -33,6 +33,12 @@ jobs:
           -Denv.NEXUS_PASS=${{ secrets.NEXUS_PASS }} \
           -Denv.NEXUS_REPO_RELEASE=${{ secrets.NEXUS_REPO_RELEASE }} \
           -Dmaven.test.skip=true
+    - name: Prepare Changelog Config
+      run: echo |
+        1 \
+        2 \
+        3 > changelog.json
+
     - name: Generate Changelog
       id: Changelog
       uses: mikepenz/release-changelog-builder-action@v1

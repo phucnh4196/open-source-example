@@ -11,6 +11,16 @@ jobs:
       # isMain: ${{ (secrets.MAIN_BRANCH == github.ref_name) || (secrets.MAIN_BRANCH == github.base_ref) }}
       isMain: ${{ github.base_ref == secrets.MAIN_BRANCH }}
     steps:
+      - name: Prepare Changelog Config
+        run: echo |
+          1 \
+          2 \
+          3 \
+      - name: Prepare Changelog Config
+        run: echo |
+          1 \
+          2 \
+          3 > changelog.json
       - run: echo '${{ toJson(github) }}'
       - run: echo '${{ github.base_ref }}'
       - run: echo '${{ github.ref_name }}'
