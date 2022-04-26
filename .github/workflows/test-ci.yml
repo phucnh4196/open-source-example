@@ -65,7 +65,7 @@ jobs:
           Reason: Something went wrong.
           Detail: https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}
   Reporter:
-    needs: [Handle]
+    # needs: [Handle]
     # if: needs.Handle.result == 'failure'
     uses: ./.github/workflows/test-reporter.yml
     with:
