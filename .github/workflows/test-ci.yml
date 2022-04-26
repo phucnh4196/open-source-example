@@ -65,8 +65,10 @@ jobs:
           Reason: Something went wrong.
           Detail: https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}
   Reporter:
-    # needs: [Handle]
+    needs: [handle]
+    steps:
+      run: echo ${{ toJSON(needs) }}
     # if: needs.Handle.result == 'failure'
-    uses: ./.github/workflows/test-reporter.yml
-    with:
-      artifact: test-results
+    # uses: ./.github/workflows/test-reporter.yml
+    # with:
+    #   artifact: test-results
