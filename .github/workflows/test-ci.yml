@@ -5,9 +5,10 @@ on: [pull_request, push]
 jobs:
   Handle:
     runs-on: ubuntu-latest
+    env:
+      main: ${{ secrets.MAIN_BRANCH }}
+    if: github.ref_name == $main || github.base_ref == $main
     steps:
-    - run: echo "${{ github.ref_name }}"
-    - run: echo "${{ github.base_ref }}"
     - name: Checkout
       uses: actions/checkout@v2
     - name: Set up JDK 11
