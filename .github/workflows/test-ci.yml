@@ -18,13 +18,13 @@ jobs:
       #   id: template
       #   with:
       #     text: $(cat ./.github/workflows/changelog.template.json)
-      - name: Parse Tag
+      - name: Prepare changelog
         uses: actions/github-script@v6
         with:
-            script: |
-              const template = require('./.github/workflows/changelog.template.json')
-              template["base_branches"] = ["something"]
-              console.log(template)
+          script: |
+            const template = require('./.github/workflows/changelog.template.json')
+            template["base_branches"] = ["something"]
+            exec ('echo ${{ toJson(template) }}')
       # - name: Create changelog template
       #   run: echo "${{ steps.template.outputs.value }}" > ./.github/workflows/changelog.json
       # - name: Update changelog template
