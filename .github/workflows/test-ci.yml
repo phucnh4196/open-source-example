@@ -67,7 +67,6 @@ jobs:
   Call Reporter:
     needs: [Handle]
     if: always() && needs.Handle.result == 'failure'
-    runs-on: ubuntu-latest
     uses: ./.github/workflows/test-reporter.yml
     with:
       artifact: test-results
