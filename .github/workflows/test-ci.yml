@@ -5,9 +5,7 @@ on: [pull_request, push]
 jobs:
   Handle:
     runs-on: ubuntu-latest
-    env:
-      main: ${{ secrets.MAIN_BRANCH }}
-    if: github.ref_name == $main || github.base_ref == $main
+    if: github.ref_name == ${{ secrets.MAIN_BRANCH }} || github.base_ref == ${{ secrets.MAIN_BRANCH }}
     steps:
     - name: Checkout
       uses: actions/checkout@v2
