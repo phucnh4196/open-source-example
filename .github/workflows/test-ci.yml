@@ -25,12 +25,9 @@ jobs:
         with:
           file: ./.github/workflows/changelog.json
           field: base_branches
-          value: '["something"]'
+          value: ['something']
       - name: Upload
-        uses: actions/upload-artifact@v2
-        with:
-          name: test
-          path: ./.github/workflows/changelog.json
+        run: cat ./.github/workflows/changelog.json
       - run: echo '${{ toJson(github) }}'
       - run: echo '${{ github.base_ref }}'
       - run: echo '${{ github.ref_name }}'
