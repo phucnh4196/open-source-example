@@ -2,11 +2,11 @@ name: 'Clean'
 
 on:
   workflow_run:
-    workflows: ['Test CI', Push Reporter]
+    workflows: ['Test CI', 'PR Reporter']
     types:
       - completed
 jobs:
-  Create_Report:
+  Delete:
     runs-on: ubuntu-latest
     steps:
       - run: echo "${{ toJSON(github.event) }}"
@@ -14,7 +14,7 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            await github.rest.actions.deleteWorkflowRunLogs({
+            await github.rest.actions.deleteWorkflowRun({
               run_id: ${{ github.event.workflow_run.id }},
               owner: context.repo.owner,
               repo: context.repo.repo
