@@ -68,7 +68,7 @@ jobs:
     needs: [Handle]
     steps:
       - name: Checkout
-        uses: echo ${{ toJSON(needs) }}
+        run: echo ${{ toJSON(needs) }}
     # if: needs.Handle.result == 'failure'
     # uses: ./.github/workflows/test-reporter.yml
     # with:
