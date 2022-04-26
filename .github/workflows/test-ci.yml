@@ -76,7 +76,7 @@ jobs:
           Detail: https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}
   Push_Reporter:
     needs: [Handle]
-    if: always() && needs.Handle.result == 'failure' && github.event_name == 'push'
+    if: failure() && needs.Handle.result == 'failure' && github.event_name == 'push'
     uses: ./.github/workflows/test-reporter-push.yml
     secrets:
       SMTP_HOST: ${{ secrets.SMTP_HOST }}
