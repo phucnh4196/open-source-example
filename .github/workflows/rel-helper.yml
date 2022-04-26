@@ -33,12 +33,14 @@ jobs:
           -Denv.NEXUS_PASS=${{ secrets.NEXUS_PASS }} \
           -Denv.NEXUS_REPO_RELEASE=${{ secrets.NEXUS_REPO_RELEASE }} \
           -Dmaven.test.skip=true
-    - name: Prepare Changelog Config
-      run: echo |
-        1 \
-        2 \
-        3 > changelog.json
-
+    - name: Prepare Changelog Template
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const template = require('./.github/workflows/changelog.template.json')
+          template["base_branches"] = ["something"]
+          const fs = require('fs')
+          fs.writeFileSync('./.github/workflows/changelog.json', JSON.stringify(template))
     - name: Generate Changelog
       id: Changelog
       uses: mikepenz/release-changelog-builder-action@v1
