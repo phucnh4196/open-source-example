@@ -16,11 +16,12 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            await github.rest.actions.getWorkflowRun({
+            const result = await github.rest.actions.getWorkflowRun({
               run_id: ${{ env.run_id }},
               owner: context.repo.owner,
               repo: context.repo.repo
             })
+            console.log(result)
       # - name: Demo
       #   uses: actions/github-script@v6
       #   with:
