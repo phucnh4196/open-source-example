@@ -66,6 +66,7 @@ jobs:
           Detail: https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}
   Reporter:
     needs: [Handle]
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         run: echo ${{ toJSON(needs) }}
