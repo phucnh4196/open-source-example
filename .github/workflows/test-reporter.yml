@@ -36,18 +36,14 @@ jobs:
   Cleanup:
     runs-on: ubuntu-latest
     needs: [Check]
+    if: always()
     steps:
     - uses: actions/github-script@v6
       if: needs.Check.outputs.isPush == 'true'
       with:
         script: |
-          const result = await github.rest.actions.createWorkflowDispatch({
-            ref: context.ref,
+          await github.rest.actions.deleteWorkflowRun({
+            run_id: ${{ github.run_id }},
             owner: context.repo.owner,
-            repo: context.repo.repo,
-            workflow_id: 'clean.yml',
-            inputs: {
-              something: 'false'
-            }
+            repo: context.repo.repo
           })
-          console.log(result)
