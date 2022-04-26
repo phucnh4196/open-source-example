@@ -9,7 +9,7 @@ jobs:
       isMain: ${{ steps.main.outputs.valid }}
     steps:
       - id: main
-        run: echo '::set-output name=valid::${{secrets.MAIN_BRANCH == github.ref_name || secrets.MAIN_BRANCH github.base_ref }}'
+        run: echo '::set-output name=valid::${{secrets.MAIN_BRANCH == github.ref_name || secrets.MAIN_BRANCH == github.base_ref }}'
   Handle:
     needs: [Check]
     if: needs.Check.outputs.isMain == 'true'
