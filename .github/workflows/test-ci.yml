@@ -6,6 +6,7 @@ jobs:
   Handle:
     runs-on: ubuntu-latest
     steps:
+    - run: echo "${{ github.ref_name }}"
     - run: echo "${{ github.base_ref }}"
     - name: Checkout
       uses: actions/checkout@v2
