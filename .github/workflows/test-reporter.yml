@@ -3,7 +3,7 @@ name: Test Reporter
 on:
   workflow_call:
     inputs:
-      username:
+      artifact:
         required: true
         type: string
  

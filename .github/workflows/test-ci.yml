@@ -68,3 +68,5 @@ jobs:
     needs: [handle]
     if: needs.handle.result == 'failure'
     uses: ./.github/workflows/test-reporter.yml
+      with:
+        artifact: test-results
