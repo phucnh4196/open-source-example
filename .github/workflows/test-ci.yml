@@ -49,7 +49,7 @@ jobs:
           const result = await github.rest.actions.createWorkflowDispatch({
             ref: context.ref,
             owner: context.repo.owner,
-            repo: context.repo.repo,'
+            repo: context.repo.repo,
             workflow_id: 'test-reporter-pr.yml'
           })
           console.log(result)
