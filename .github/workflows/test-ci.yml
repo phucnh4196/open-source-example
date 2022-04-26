@@ -18,7 +18,7 @@ jobs:
       - run: echo '${{ github.base_ref }}'
       - run: echo '${{ github.ref_name }}'
       - run: echo '${{ github.base_ref == secrets.MAIN_BRANCH }}'
-      # - run: echo '${{ github.ref_name == secrets.MAIN_BRANCH }}'
+      - run: echo '${{ github.ref_name == secrets.MAIN_BRANCH }}'
       - id: main
         run: echo '::set-output name=valid::${{ env.isMain }}'
   Handle:
