@@ -40,25 +40,27 @@ jobs:
             const testResult = runInfo.data.jobs.find(item => item.name === 'Unit test result')
             const htmlUrl = testResult.html_url
             core.exportVariable('htmlUrl', htmlUrl)
-      - name: Notify pull request creator (Failed test)
-        if: github.event_name == 'pull_request'
-        uses: thollander/actions-comment-pull-request@v1
-        with:
-          message: |
-            ${{ env.htmlUrl }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Notify pusher (Failed test)
-        if: github.event_name == 'push'
-        uses: dawidd6/action-send-mail@v3
-        with:
-          server_address: ${{ secrets.SMTP_HOST }}
-          server_port: ${{ secrets.SMTP_PORT }}
-          username: ${{ secrets.SMTP_USERNAME }}
-          password: ${{ secrets.SMTP_PASSWORD }}
-          subject: '🔥 [GITHUB BOT][FAILED] Push report (Unit test failed)'
-          from: Github Action Bot
-          to: ${{ secrets.SMTP_RECEIVER }}
-          body: |
-            Push created by ${{ github.event.pusher.name }} has been failed.
-            Reason: Unit test failed.
-            Detail: ${{ env.htmlUrl }}
+      # - name: Notify pull request creator (Failed test)
+      #   if: github.event_name == 'pull_request'
+      #   uses: thollander/actions-comment-pull-request@v1
+      #   with:
+      #     message: |
+      #       ${{ env.htmlUrl }}
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Notify pusher (Failed test)
+      #   if: github.event_name == 'push'
+      #   uses: dawidd6/action-send-mail@v3
+      #   with:
+      #     server_address: ${{ secrets.SMTP_HOST }}
+      #     server_port: ${{ secrets.SMTP_PORT }}
+      #     username: ${{ secrets.SMTP_USERNAME }}
+      #     password: ${{ secrets.SMTP_PASSWORD }}
+      #     subject: '🔥 [GITHUB BOT][FAILED] Push report (Unit test failed)'
+      #     from: Github Action Bot
+      #     to: ${{ secrets.SMTP_RECEIVER }}
+      #     body: |
+      #       Push created by ${{ github.event.pusher.name }} has been failed.
+      #       Reason: Unit test failed.
+      #       Detail: ${{ env.htmlUrl }}
+  Notifier:
+    uses: ./.github/workflows/notifier.yml

@@ -1,52 +1,18 @@
-name: Test Reporter
+name: Notifier
 
 on:
   workflow_call:
     inputs:
-      artifact:
+      body:
         required: true
         type: string
+
  
 jobs:
-  Reporter:
+  Sender:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Download test report
-        uses: actions/download-artifact@v2
-        with:
-          name: test-results
-          path: artifact
-      - name: Process report
-        id: reportAction
-        uses: dorny/test-reporter@v1
-        with:
-          name: Unit test result
-          path: 'artifact/*.xml'
-          reporter: java-junit
-          fail-on-error: false
-      - name: Get HTML result
-        if: github.event_name == 'push'
-        uses: actions/github-script@v6
-        with:
-          script: |
-            const runInfo = await github.rest.actions.listJobsForWorkflowRun({
-              run_id: context.runId,
-              owner: context.repo.owner,
-              repo: context.repo.repo
-            })
-            const testResult = runInfo.data.jobs.find(item => item.name === 'Unit test result')
-            const htmlUrl = testResult.html_url
-            core.exportVariable('htmlUrl', htmlUrl)
-      - name: Notify pull request creator (Failed test)
-        if: github.event_name == 'pull_request'
-        uses: thollander/actions-comment-pull-request@v1
-        with:
-          message: |
-            ${{ env.htmlUrl }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Notify pusher (Failed test)
+      - name: Send
         if: github.event_name == 'push'
         uses: dawidd6/action-send-mail@v3
         with:
@@ -58,6 +24,4 @@ jobs:
           from: Github Action Bot
           to: ${{ secrets.SMTP_RECEIVER }}
           body: |
-            Push created by ${{ github.event.pusher.name }} has been failed.
-            Reason: Unit test failed.
-            Detail: ${{ env.htmlUrl }}
+            Push created by has been failed.
