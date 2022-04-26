@@ -11,6 +11,7 @@ jobs:
     outputs:
       isPR: ${{ steps.main.outputs.valid }}
     steps:
+      - run: echo '${{ toJson(github) }}'
       - id: main
         run: echo '::set-output name=valid::${{ github.event.workflow_run.conclusion == 'failure' && secrets.MAIN_BRANCH == github.base_ref }}'
   Create_Report:
@@ -18,7 +19,6 @@ jobs:
     needs: [Check]
     if: needs.Check.outputs.isPR == 'true'
     steps:
-    - run: echo '${{ toJson(github) }}'
     - uses: dorny/test-reporter@v1
       with:
         artifact: test-results
