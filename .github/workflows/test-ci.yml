@@ -31,6 +31,7 @@ jobs:
       run: mvn test
     - name: Upload test report
       # if: failure()
+      if: always()
       uses: actions/upload-artifact@v2
       with:
         name: test-results
@@ -43,7 +44,7 @@ jobs:
         directory: ./target/site/jacoco/
   Result:
     needs: [Process]
-    if: always
+    if: always()
     runs-on: ubuntu-latest
     steps:
     - name: Download Artifacts
