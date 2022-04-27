@@ -55,7 +55,7 @@ jobs:
               ...context.repo
             })
             const fs = require('fs');
-            fs.writeFileSync('${{env.artifactName}}.zip', Buffer.from(download.data));
+            fs.writeFileSync(`${artifactName}.zip`, Buffer.from(download.data));
           }
           download("${{ env.artifactName }}")
           download("${{ env.eventFile }}")
