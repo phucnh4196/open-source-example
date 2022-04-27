@@ -55,7 +55,7 @@ Sonar Setup
 -   Get Project Key, Organization Key: https://sonarcloud.io/project/information?id=...
 -   Add secret SONAR_PROJECT_KEY <-- Project key
 -   Add secret SONAR_ORGANIZATION <-- Organization
--   Add <property> in pom.xml
+-   Add entry in <properties> in pom.xml
     `<properties>
         <sonar.organization>${env.SONAR_ORGANIZATION}</sonar.organization>
     </properties>`

@@ -26,7 +26,7 @@
         <repository>
             <id>maven-releases</id>
             <name>Internal Releases</name>
-             <url>${env.NEXUS_REPO_RELEASE}</url>
+            <url>${env.NEXUS_REPO_RELEASE}</url>
         </repository>
     </distributionManagement>
 
