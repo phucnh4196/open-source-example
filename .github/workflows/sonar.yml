@@ -9,6 +9,14 @@ jobs:
   Process:
     if: github.event.workflow_run.conclusion != 'failure'
     runs-on: ubuntu-latest
+    env:
+      sonarVersion: ${{ steps.project.outputs.version }}
+      sonarProjectName: ${{ secrets.SONAR_PROJECT_KEY }}
+      sonarProjectKey: ${{ secrets.SONAR_PROJECT_KEY }}
+      sonarJavaBinaries: .
+      sonarSource: .
+      sonarInclusion: /*.java
+      sonarExclusion: /*.zip,/*.jar,/*.html,/R.java,/build/,/target/,/.settings/,/.mvn/,/src/main/resources/static/bower_components/,/src/main/resources/static/jquery-validation/,/src/main/resources/static/scripts/material/,/src/main/resources/static/scripts/multiselect/,/src/main/resources/static/scripts/nanobar/,/src/main/resources/static/scripts/plugins/,/src/main/resources/static/scripts/utils/**
     steps:
     - name: Checkout
       uses: actions/checkout@v2
@@ -39,17 +47,18 @@ jobs:
           core.exportVariable('prBranch', pr.head.ref)
           core.exportVariable('prBase', pr.base.ref)
           core.exportVariable('prNumber', pr.number)
-          console.log(pr.head.ref, pr.base.ref, pr.number)
+          core.exportVariable('prRepo', pr.repository)
+          core.exportVariable('endpoint', pr.api_url)
     - name: Build and analyze (PR)
       if: github.event.workflow_run.event == 'pull_request'
-      run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.pullrequest.branch=${{ env.prBranch }} -Dsonar.pullrequest.base=${{ env.prBase }} -Dsonar.pullrequest.key=${{ env.prNumber }} -Dsonar.projectName=${{ secrets.SONAR_PROJECT_KEY }} -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} -Dsonar.version=${{ steps.project.outputs.version }} -Dsonar.java.binaries=. -Dsonar.sources=. -Dsonar.inclusions=/*.java -Dsonar.exclusions=/*.zip,/*.jar,/*.html,/R.java,/build/,/target/,/.settings/,/.mvn/,/src/main/resources/static/bower_components/,/src/main/resources/static/jquery-validation/,/src/main/resources/static/scripts/material/,/src/main/resources/static/scripts/multiselect/,/src/main/resources/static/scripts/nanobar/,/src/main/resources/static/scripts/plugins/,/src/main/resources/static/scripts/utils/**
+      run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.pullrequest.github.repository=${{ env.prRepo }} -Dsonar.pullrequest.github.endpoint=${{ env.api_url }} -Dsonar.pullrequest.branch=${{ env.prBranch }} -Dsonar.pullrequest.base=${{ env.prBase }} -Dsonar.pullrequest.key=${{ env.prNumber }} -Dsonar.projectName=${{ env.sonarProjectName }} -Dsonar.projectKey=${{ env.sonarProjectName }} -Dsonar.version=${{ env.sonarVersion }} -Dsonar.java.binaries=${{ env.sonarJavaBinaries }} -Dsonar.sources=${{ env.sonarSource }} -Dsonar.inclusions=${{ env.sonarInclusion }} -Dsonar.exclusions=${{ env.sonarExclusion }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
     - name: Build and analyze (Push)
       if: github.event.workflow_run.event == 'push'
-      run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectName=${{ secrets.SONAR_PROJECT_KEY }} -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} -Dsonar.version=${{ steps.project.outputs.version }} -Dsonar.java.binaries=. -Dsonar.sources=. -Dsonar.inclusions=/*.java -Dsonar.exclusions=/*.zip,/*.jar,/*.html,/R.java,/build/,/target/,/.settings/,/.mvn/,/src/main/resources/static/bower_components/,/src/main/resources/static/jquery-validation/,/src/main/resources/static/scripts/material/,/src/main/resources/static/scripts/multiselect/,/src/main/resources/static/scripts/nanobar/,/src/main/resources/static/scripts/plugins/,/src/main/resources/static/scripts/utils/**
+      run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectName=${{ env.sonarProjectName }} -Dsonar.projectKey=${{ env.sonarProjectName }} -Dsonar.version=${{ env.sonarVersion }} -Dsonar.java.binaries=${{ env.sonarJavaBinaries }} -Dsonar.sources=${{ env.sonarSource }} -Dsonar.inclusions=${{ env.sonarInclusion }} -Dsonar.exclusions=${{ env.sonarExclusion }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

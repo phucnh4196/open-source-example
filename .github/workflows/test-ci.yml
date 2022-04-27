@@ -10,9 +10,6 @@ jobs:
     env:
       isMain: ${{ github.ref_name == secrets.MAIN_BRANCH || github.event_name == 'pull_request' }}
     steps:
-      - run: |
-        echo \
-        1
       - name: Check
         id: main
         run: echo '::set-output name=valid::${{ env.isMain }}'
