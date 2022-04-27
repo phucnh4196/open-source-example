@@ -13,4 +13,5 @@ Release Setup
 Sonar Setup
 -   Register: https://sonarcloud.io/sessions/init/github
 -   Add Repository
--   
+-   Create token: https://sonarcloud.io/account/security
+-   Add secret SONAR_TOKEN <-- 72bca3c9a7813d05ba655b9d3d1f90f90696aa7e

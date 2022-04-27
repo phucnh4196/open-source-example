@@ -52,7 +52,7 @@ jobs:
             archive_format: 'zip',
             ...context.repo
           })
-
+    - run: ls -l
     - name: Extract
       run: unzip ${{env.artifactName}}.zip
     - name: Create Report
