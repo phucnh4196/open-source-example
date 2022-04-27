@@ -36,7 +36,6 @@ jobs:
             ...context.repo,
             run_id: ${{ github.event.workflow_run.id }}
           })
-
           if (workflowInfo.data.artifacts.length === 0) {
             console.log(`No artifact on previous workflow`)
             return
@@ -52,28 +51,12 @@ jobs:
             archive_format: 'zip',
             ...context.repo
           })
-          console.log(download)
           const fs = require('fs');
           fs.writeFileSync('${{env.artifactName}}.zip', Buffer.from(download.data));
-    - run: ls -l
     - name: Extract
       run: unzip ${{env.artifactName}}.zip
+    - run: echo '${{github}}'
     - name: Create Report
       uses: EnricoMi/publish-unit-test-result-action@v1
       with:
         files: '*.xml'
-
-  # Cleanup:
-  #   runs-on: ubuntu-latest
-  #   needs: [Check]
-  #   if: always()
-  #   steps:
-  #   - uses: actions/github-script@v6
-  #     if: needs.Check.outputs.isPush == 'true'
-  #     with:
-  #       script: |
-  #         await github.rest.actions.deleteWorkflowRun({
-  #           run_id: ${{ github.run_id }},
-  #           owner: context.repo.owner,
-  #           repo: context.repo.repo
-  #         })
