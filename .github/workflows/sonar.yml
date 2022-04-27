@@ -21,11 +21,10 @@ jobs:
       id: project
     - name: Prepare changelog
       run: |
-        sed -i -e "s|<sonar.organization>${env.SONAR_ORGANIZATION}</sonar.organization>|sonar.projectKey=<sonar.organization>${{ secrets.SONAR_ORGANIZATION }}</sonar.organization>|g" sonar-project.properties
+        sed -i -e "s|<sonar.organization>${env.SONAR_ORGANIZATION}</sonar.organization>|<sonar.organization>${{ secrets.SONAR_ORGANIZATION }}</sonar.organization>|g" sonar-project.properties
     - name: Build and analyze
       run: > 
           mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar    
-            -Denv.SONAR_ORGANIZATION=${{ secrets.SONAR_ORGANIZATION }}
             -Dsonar.projectName=${{ secrets.SONAR_PROJECT_KEY }}
             -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
             -Dsonar.version=${{ steps.project.outputs.version }}
