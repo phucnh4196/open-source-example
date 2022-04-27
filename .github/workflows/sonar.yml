@@ -1,27 +1,33 @@
 name: SonarCloud Scan
 
-on: [pull_request, push]
- 
+on:
+  workflow_run:
+    workflows: ['Unit Test & Coverage']
+    types:
+      - completed
 jobs:
   Check:
     runs-on: ubuntu-latest
     outputs:
-      isMain: ${{ steps.main.outputs.valid }}
+      isPR: ${{ steps.main_pr.outputs.valid }}
+      isPush: ${{ steps.main_push.outputs.valid }}
     env:
-      isMain: ${{ github.ref_name == secrets.MAIN_BRANCH || github.event_name == 'pull_request' }}
+      isPR: ${{ github.event.workflow_run.conclusion == 'failure' || github.event.workflow_run.event == 'pull_request' }}
+      isPush: ${{ github.event.workflow_run.event == 'push' }}
     steps:
-      - name: Check
-        id: main
-        run: echo '::set-output name=valid::${{ env.isMain }}'
+      - name: Check PR
+        id: main_pr
+        run: echo '::set-output name=valid::${{ env.isPR }}'
+      - name: Check Push
+        id: main_push
+        run: echo '::set-output name=valid::${{ env.isPush }}'
   Process:
     needs: [Check]
-    if: needs.Check.outputs.isMain == 'true'
+    if: needs.Check.outputs.isPR == 'true' || needs.Check.outputs.isPush == 'true'
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: Prepare
-      run: rm pom.xml
     - name: SonarCloud Scan
       uses: sonarsource/sonarcloud-github-action@master
       env:
