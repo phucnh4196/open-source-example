@@ -53,4 +53,5 @@ Sonar Setup
 -   Create token: https://sonarcloud.io/account/security
 -   Add secret SONAR_TOKEN <-- token
 -   Get Project Key, Organization Key: https://sonarcloud.io/project/information?id=...
-
+-   Add secret SONAR_PROJECT_KEY <-- Project key
+-   Add file `sonar-project.properties` in root
