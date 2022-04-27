@@ -36,6 +36,11 @@ jobs:
       with:
         name: test-results
         path: target/surefire-reports/*.xml
+    - name: Upload event file
+      uses: actions/upload-artifact@v2
+      with:
+        name: event-file
+        path: ${{ github.event_path }}
     - name: Code Coverage
       uses: codecov/codecov-action@v2
       with:

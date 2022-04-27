@@ -27,6 +27,7 @@ jobs:
     if: needs.Check.outputs.isPR == 'true' || needs.Check.outputs.isPush == 'true'
     env:
       artifactName: 'test-results'
+      eventFile: 'event-file'
     steps:
     - name: Download Artifacts
       uses: actions/github-script@v6
@@ -40,25 +41,33 @@ jobs:
             console.log(`No artifact on previous workflow`)
             return
           }
-          const artifacts = workflowInfo.data.artifacts.filter(a => a.name == "${{ env.artifactName }}")
-          if (artifacts.length === 0) {
-            console.log(`No artifact named ${{ env.artifactName }}`)
-            return
+
+          const download = (artifactName) => {
+            const artifacts = workflowInfo.data.artifacts.filter(a => a.name == artifactName)
+            if (artifacts.length === 0) {
+              console.log(`No artifact named ${artifactName}`)
+              return
+            }
+            const artifact = artifacts[0]    
+            const download = await github.rest.actions.downloadArtifact({
+              artifact_id: artifact.id,
+              archive_format: 'zip',
+              ...context.repo
+            })
+            const fs = require('fs');
+            fs.writeFileSync('${{env.artifactName}}.zip', Buffer.from(download.data));
           }
-          const artifact = artifacts[0]    
-          const download = await github.rest.actions.downloadArtifact({
-            artifact_id: artifact.id,
-            archive_format: 'zip',
-            ...context.repo
-          })
-          const fs = require('fs');
-          fs.writeFileSync('${{env.artifactName}}.zip', Buffer.from(download.data));
+          download("${{ env.artifactName }}")
+          download("${{ env.eventFile }}")
     - name: Extract
-      run: unzip ${{env.artifactName}}.zip
+      run: |
+        unzip ${{env.artifactName}}.zip
+        unzip ${{env.eventFile}}.zip
     - run: echo '${{ toJson(github) }}'
     - name: Create Report
       uses: EnricoMi/publish-unit-test-result-action@v1
       with:
         files: '*.xml'
         commit: ${{ github.event.workflow_run.head_sha }}
+        event_file: event.json
         event_name: ${{ github.event.workflow_run.event }}
