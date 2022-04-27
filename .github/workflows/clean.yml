@@ -1,22 +1,22 @@
-name: 'Clean'
+# name: 'Clean'
 
-on:
-  workflow_run:
-    workflows: ['Unit Test & Coverage']
-    types:
-      - completed
-jobs:
-  Delete:
-    env:
-      run_id: ${{ github.event.workflow_run.id }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Execute
-        uses: actions/github-script@v6
-        with:
-          script: |
-            await github.rest.actions.deleteWorkflowRun({
-              run_id: ${{ github.event.workflow_run.id }},
-              owner: context.repo.owner,
-              repo: context.repo.repo
-            })
+# on:
+#   workflow_run:
+#     workflows: ['Unit Test & Coverage']
+#     types:
+#       - completed
+# jobs:
+#   Delete:
+#     env:
+#       run_id: ${{ github.event.workflow_run.id }}
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Execute
+#         uses: actions/github-script@v6
+#         with:
+#           script: |
+#             await github.rest.actions.deleteWorkflowRun({
+#               run_id: ${{ github.event.workflow_run.id }},
+#               owner: context.repo.owner,
+#               repo: context.repo.repo
+#             })
