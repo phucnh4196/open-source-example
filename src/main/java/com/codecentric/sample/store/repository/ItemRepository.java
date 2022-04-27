@@ -16,7 +16,7 @@ public class ItemRepository {
     static
     {
         itemMap = new HashMap<String, Item>();
-        itemMap.put("it1", new Item("it1", "Item 1", "This is item 1", 2000, true));
+        itemMap.put("99", new Item("it1", "Item 1", "This is item 1", 2000, true));
     }
 
     public List<Item> readAllItems() {
