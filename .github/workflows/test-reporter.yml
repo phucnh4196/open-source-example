@@ -47,11 +47,12 @@ jobs:
             return
           }
           const artifact = artifacts[0]    
-          await github.rest.actions.downloadArtifact({
+          const download = await github.rest.actions.downloadArtifact({
             artifact_id: artifact.id,
             archive_format: 'zip',
             ...context.repo
           })
+          console.log(download)
     - run: ls -l
     - name: Extract
       run: unzip ${{env.artifactName}}.zip
