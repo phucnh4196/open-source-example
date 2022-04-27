@@ -53,6 +53,8 @@ jobs:
             ...context.repo
           })
           console.log(download)
+          const fs = require('fs');
+          fs.writeFileSync('${{env.artifactName}}.zip', download.data);
     - run: ls -l
     - name: Extract
       run: unzip ${{env.artifactName}}.zip
