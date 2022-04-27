@@ -49,7 +49,7 @@ jobs:
           core.exportVariable('sonarVersion', "${{ steps.project.outputs.version }}")
     - name: Build and analyze (PR)
       if: github.event.workflow_run.event == 'pull_request'
-      run: mvn verify sonar:sonar -Dsonar.login=${{ secrets.SONAR_TOKEN }} -Dsonar.pullrequest.github.repository=${{ env.prRepo }} -Dsonar.pullrequest.github.endpoint=${{ env.api_url }} -Dsonar.pullrequest.branch=${{ env.prBranch }} -Dsonar.pullrequest.base=${{ env.prBase }} -Dsonar.pullrequest.key=${{ env.prNumber }} -Dsonar.projectName=${{ env.sonarProjectName }} -Dsonar.projectKey=${{ env.sonarProjectName }} -Dsonar.version=${{ env.sonarVersion }} -Dsonar.java.binaries=${{ env.sonarJavaBinaries }} -Dsonar.sources=${{ env.sonarSource }} -Dsonar.inclusions=${{ env.sonarInclusion }} -Dsonar.exclusions=${{ env.sonarExclusion }}
+      run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.pullrequest.github.repository=${{ env.prRepo }} -Dsonar.pullrequest.github.endpoint=${{ env.api_url }} -Dsonar.pullrequest.branch=${{ env.prBranch }} -Dsonar.pullrequest.base=${{ env.prBase }} -Dsonar.pullrequest.key=${{ env.prNumber }} -Dsonar.projectName=${{ env.sonarProjectName }} -Dsonar.projectKey=${{ env.sonarProjectName }} -Dsonar.version=${{ env.sonarVersion }} -Dsonar.java.binaries=${{ env.sonarJavaBinaries }} -Dsonar.sources=${{ env.sonarSource }} -Dsonar.inclusions=${{ env.sonarInclusion }} -Dsonar.exclusions=${{ env.sonarExclusion }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
