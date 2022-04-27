@@ -29,7 +29,7 @@ jobs:
     - name: Download Artifacts
       uses: actions/github-script@v6
       with:
-        scripts: |
+        script: |
           await github.rest.actions.downloadArtifact({
             artifact_id: 'test-results',
             archive_format: 'zip',
