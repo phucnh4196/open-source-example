@@ -36,7 +36,6 @@ jobs:
             ...context.repo,
             run_id: ${{ github.event.workflow_run.id }}
           })
-          console.log(workflowInfo)
 
           if (workflowInfo.data.artifacts.length === 0) {
             console.log(`No artifact on previous workflow`)
@@ -54,6 +53,8 @@ jobs:
             ...context.repo
           })
 
+    - name: Extract
+      run: 7x x ${{env.artifactName}}.zip
     - name: Create Report
       uses: EnricoMi/publish-unit-test-result-action@v1
       with:
