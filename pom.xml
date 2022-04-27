@@ -35,6 +35,10 @@
         <java.version>1.7</java.version>
     </properties>
 
+    <properties>
+        <sonar.organization>${env.SONAR_ORGANIZATION}</sonar.organization>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
