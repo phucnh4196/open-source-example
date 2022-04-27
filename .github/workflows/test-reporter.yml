@@ -42,7 +42,7 @@ jobs:
             console.log(`No artifact on previous workflow`)
             return
           }
-          const artifacts = workflowInfo.data.artifacts.filter(a => a.name == ${{ env.artifactName }})
+          const artifacts = workflowInfo.data.artifacts.filter(a => a.name == "${{ env.artifactName }}"")
           if (artifacts.length === 0) {
             console.log(`No artifact named ${{ env.artifactName }}`)
             return
