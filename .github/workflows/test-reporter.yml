@@ -30,7 +30,7 @@ jobs:
       uses: actions/github-script@v6
       with:
         script: |
-          const artifactName = 'test-result'
+          const artifactName = 'test-results'
           const workflowInfo = await github.rest.actions.listWorkflowRunArtifacts({
             ...context.repo,
             run_id: ${{ github.event.workflow_run.id }}
