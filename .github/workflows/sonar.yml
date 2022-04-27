@@ -28,18 +28,23 @@ jobs:
       uses: actions/github-script@v6
       with:
         script: |
-          const workflowInfo = await github.rest.repos.listPullRequestsAssociatedWithCommit({
-            ...context.repo,
-            commit_sha: "${{ github.event.workflow_run.head_commit.id }}"
+          const prInfo = await github.rest.repos.listPullRequestsAssociatedWithCommit({
+            commit_sha: "${{ github.event.workflow_run.head_commit.id }}",
+            owner: "${{ github.event.workflow_run.head_commit.author.name }}",
+            repo: "${{ github.event.workflow_run.head_repository.name }}"
           })
-          console.log(workflowInfo)
+          const pr = prInfo[0]
+          core.exportVariable('prBranch', pr.head.ref)
+          core.exportVariable('prBase', pr.base.ref)
+          core.exportVariable('prNumber', pr.number)
+          console.log(pr.head.ref, pr.base.ref, pr.number)
     - name: Build and analyze (PR)
       if: github.event.workflow_run.event == 'pull_request'
       run: > 
           mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar    
-            -Dsonar.pullrequest.branch=${{ github.event.pull_request.head.ref }} 
-            -Dsonar.pullrequest.base=${{ github.event.pull_request.base.ref }} 
-            -Dsonar.pullrequest.key=${{github.event.pull_request.number}}
+            -Dsonar.pullrequest.branch=${{ env.prBranch }}
+            -Dsonar.pullrequest.base=${{ env.prBase }}
+            -Dsonar.pullrequest.key=${{ env.prNumber }}
             -Dsonar.projectName=${{ secrets.SONAR_PROJECT_KEY }}
             -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
             -Dsonar.version=${{ steps.project.outputs.version }}
