@@ -14,7 +14,7 @@ jobs:
       sonarProjectKey: ${{ secrets.SONAR_PROJECT_KEY }}
       sonarJavaBinaries: .
       sonarSource: .
-      sonarInclusion: /*.java
+      sonarInclusion: /**/*.java
       sonarExclusion: /*.zip,/*.jar,/*.html,/R.java,/build/,/target/,/.settings/,/.mvn/,/src/main/resources/static/bower_components/,/src/main/resources/static/jquery-validation/,/src/main/resources/static/scripts/material/,/src/main/resources/static/scripts/multiselect/,/src/main/resources/static/scripts/nanobar/,/src/main/resources/static/scripts/plugins/,/src/main/resources/static/scripts/utils/**
     steps:
     - name: Checkout
