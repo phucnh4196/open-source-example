@@ -13,7 +13,7 @@ jobs:
       - name: Check
         id: main
         run: echo '::set-output name=valid::${{ env.isMain }}'
-  Handle:
+  Process:
     needs: [Check]
     if: needs.Check.outputs.isMain == 'true'
     runs-on: ubuntu-latest
