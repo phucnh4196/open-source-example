@@ -1,0 +1,19 @@
+# Must be unique in a given SonarQube instance
+sonar.projectKey=projectKey
+
+# This is the name and version displayed in the SonarQube UI.
+# Was mandatory prior to SonarQube 6.1.
+sonar.projectName=My project
+sonar.projectVersion=1.0
+
+sonar.java.binaries=.
+sonar.inclusions=/*.java
+sonar.exclusions=/*.zip,/*.jar,/*.html,/R.java,/build/,/target/,/.settings/,/.mvn/,/src/main/resources/static/bower_components/,/src/main/resources/static/jquery-validation/,/src/main/resources/static/scripts/material/,/src/main/resources/static/scripts/multiselect/,/src/main/resources/static/scripts/nanobar/,/src/main/resources/static/scripts/plugins/,/src/main/resources/static/scripts/utils/**
+ 
+# Path is relative to the sonar-project.properties file.
+# Replace "\" by "/" on Windows.
+# This property is optional if sonar.modules is set. 
+sonar.sources=.
+ 
+# Encoding of the source code. Default is default system encoding
+sonar.sourceEncoding=UTF-8

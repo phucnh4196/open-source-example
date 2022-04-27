@@ -63,7 +63,6 @@ jobs:
       run: |
         unzip ${{env.artifactName}}.zip
         unzip ${{env.eventFile}}.zip
-    - run: echo '${{ toJson(github) }}'
     - name: Create Report
       uses: EnricoMi/publish-unit-test-result-action@v1
       with:
