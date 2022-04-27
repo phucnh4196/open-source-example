@@ -42,16 +42,3 @@ jobs:
         token: ${{ secrets.CODECOV_TOKEN }}
         files: jacoco.xml
         directory: ./target/site/jacoco/
-  Result:
-    needs: [Process]
-    if: always() && needs.Check.outputs.isMain == 'true'
-    runs-on: ubuntu-latest
-    steps:
-    - name: Download Artifacts
-      uses: actions/download-artifact@v2
-      with:
-        name: test-results
-    - name: Create Report
-      uses: EnricoMi/publish-unit-test-result-action@v1
-      with:
-        path: '*.xml'
