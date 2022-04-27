@@ -24,6 +24,7 @@ jobs:
           mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar    
             -Dsonar.projectName=${secrets.SONAR_PROJECT_KEY}
             -Dsonar.projectKey=${secrets.SONAR_PROJECT_KEY}
+            -Dsonar.organization=${secrets.SONAR_ORGANIZATION}
             -Dsonar.version=${{ steps.project.outputs.version }}
             -Dsonar.java.binaries=.
             -Dsonar.sources=.
