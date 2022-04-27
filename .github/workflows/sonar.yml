@@ -19,6 +19,9 @@ jobs:
     - name: Extract Maven project version
       run: echo ::set-output name=version::$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
       id: project
+    - name: Prepare changelog
+      run: |
+        sed -i -e "s|<sonar.organization>${env.SONAR_ORGANIZATION}</sonar.organization>|sonar.projectKey=<sonar.organization>${{ secrets.SONAR_ORGANIZATION }}</sonar.organization>|g" sonar-project.properties
     - name: Build and analyze
       run: > 
           mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar    
