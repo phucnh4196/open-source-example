@@ -54,7 +54,7 @@ jobs:
           })
 
     - name: Extract
-      run: 7x x ${{env.artifactName}}.zip
+      run: unzip ${{env.artifactName}}.zip
     - name: Create Report
       uses: EnricoMi/publish-unit-test-result-action@v1
       with:
