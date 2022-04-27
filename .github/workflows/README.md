@@ -50,13 +50,13 @@ Unit test setup
 Sonar Setup
 -   Register: https://sonarcloud.io/sessions/init/github
 -   Add Repository
--   Create token: https://sonarcloud.io/account/security
+-   Create token (Go to Administration -> Analysis Method -> Github Action -> Copy Token)
 -   Add secret SONAR_TOKEN <-- token
 -   Get Project Key, Organization Key: https://sonarcloud.io/project/information?id=...
 -   Add secret SONAR_PROJECT_KEY <-- Project key
 -   Add secret SONAR_ORGANIZATION <-- Organization
+-   Add secret SONAR_HOST_URL <-- https://sonarcloud.io
 -   Add entry in <properties> in pom.xml
     `<properties>
         <sonar.organization>${env.SONAR_ORGANIZATION}</sonar.organization>
     </properties>`
--   Add secret SONAR_HOST_URL <-- https://sonarcloud.io
