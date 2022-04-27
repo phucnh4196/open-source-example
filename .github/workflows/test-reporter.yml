@@ -42,7 +42,7 @@ jobs:
             return
           }
 
-          const download = (artifactName) => {
+          const download = async (artifactName) => {
             const artifacts = workflowInfo.data.artifacts.filter(a => a.name == artifactName)
             if (artifacts.length === 0) {
               console.log(`No artifact named ${artifactName}`)
