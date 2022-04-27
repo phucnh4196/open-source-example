@@ -54,7 +54,7 @@ jobs:
           })
           console.log(download)
           const fs = require('fs');
-          fs.writeFileSync('${{env.artifactName}}.zip', download.data);
+          fs.writeFileSync('${{env.artifactName}}.zip', Buffer.from(download.data));
     - run: ls -l
     - name: Extract
       run: unzip ${{env.artifactName}}.zip
