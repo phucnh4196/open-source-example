@@ -1,0 +1,27 @@
+name: SonarCloud Scan
+
+on: [pull_request, push]
+ 
+jobs:
+  Check:
+    runs-on: ubuntu-latest
+    outputs:
+      isMain: ${{ steps.main.outputs.valid }}
+    env:
+      isMain: ${{ github.ref_name == secrets.MAIN_BRANCH || github.event_name == 'pull_request' }}
+    steps:
+      - name: Check
+        id: main
+        run: echo '::set-output name=valid::${{ env.isMain }}'
+  Process:
+    needs: [Check]
+    if: needs.Check.outputs.isMain == 'true'
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: SonarCloud Scan
+      uses: sonarsource/sonarcloud-github-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
