@@ -36,12 +36,12 @@ jobs:
             run_id: context.runId
           })
 
-          if (resp.data.artifacts.length === 0) {
+          if (workflowInfo.data.artifacts.length === 0) {
             console.log(`No artifact on previous workflow`)
             return
           }
 
-          const artifacts = resp.data.artifacts.filter(a => a.name == artifactName)
+          const artifacts = workflowInfo.data.artifacts.filter(a => a.name == artifactName)
           if (artifacts.length === 0) {
             console.log(`No artifact named ${artifactName}`)
             return
