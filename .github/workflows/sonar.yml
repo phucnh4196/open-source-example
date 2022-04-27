@@ -1,7 +1,10 @@
 name: SonarCloud Scan
 
-on: [pull_request_target, push]
- 
+on:
+  workflow_run:
+    workflows: ['Unit Test & Coverage']
+    types:
+      - completed
 jobs:
   Process:
     if: github.event.workflow_run.conclusion != 'failure'
@@ -16,6 +19,7 @@ jobs:
     - name: Extract Maven project version
       run: echo ::set-output name=version::$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
       id: project
+    - run: echo '${{ toJson(github) }}'
     - name: Prepare changelog
       run: |
         sed -i -e "s|<sonar.organization>\${env.SONAR_ORGANIZATION}</sonar.organization>|<sonar.organization>${{ secrets.SONAR_ORGANIZATION }}</sonar.organization>|g" pom.xml
@@ -29,6 +33,9 @@ jobs:
             -Dsonar.sources=.
             -Dsonar.inclusions=/*.java
             -Dsonar.exclusions=/*.zip,/*.jar,/*.html,/R.java,/build/,/target/,/.settings/,/.mvn/,/src/main/resources/static/bower_components/,/src/main/resources/static/jquery-validation/,/src/main/resources/static/scripts/material/,/src/main/resources/static/scripts/multiselect/,/src/main/resources/static/scripts/nanobar/,/src/main/resources/static/scripts/plugins/,/src/main/resources/static/scripts/utils/**
+            -Dsonar.pullrequest.branch=${{ github.event.workflow_run.event.event.pull_request.head.ref }} 
+            -Dsonar.pullrequest.base=${{ github.event.workflow_run.event.event.pull_request.base.ref }} 
+            -Dsonar.pullrequest.key=${{github.event.workflow_run.event.event.pull_request.number}}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
