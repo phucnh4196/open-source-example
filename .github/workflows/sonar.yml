@@ -15,15 +15,15 @@ jobs:
     - name: Build and analyze
       run: | 
         mvn -DskipTests=true \
-        -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
-        -Pcoverage \
-        -Dsonar.projectName=${secrets.SONAR_PROJECT_KEY} \
-        -Dsonar.projectKey=${secrets.SONAR_PROJECT_KEY} \
-        -Dsonar.version=${secrets.SONAR_PROJECT_KEY} \
-        -Dsonar.java.binaries=. \
-        -Dsonar.sources=. \
-        -Dsonar.inclusions=/*.java \
-        -Dsonar.exclusions=/*.zip,/*.jar,/*.html,/R.java,/build/,/target/,/.settings/,/.mvn/,/src/main/resources/static/bower_components/,/src/main/resources/static/jquery-validation/,/src/main/resources/static/scripts/material/,/src/main/resources/static/scripts/multiselect/,/src/main/resources/static/scripts/nanobar/,/src/main/resources/static/scripts/plugins/,/src/main/resources/static/scripts/utils/**
+          -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar \
+          -Pcoverage \
+          -Dsonar.projectName=${secrets.SONAR_PROJECT_KEY} \
+          -Dsonar.projectKey=${secrets.SONAR_PROJECT_KEY} \
+          -Dsonar.version=${secrets.SONAR_PROJECT_KEY} \
+          -Dsonar.java.binaries=. \
+          -Dsonar.sources=. \
+          -Dsonar.inclusions=/*.java \
+          -Dsonar.exclusions=/*.zip,/*.jar,/*.html,/R.java,/build/,/target/,/.settings/,/.mvn/,/src/main/resources/static/bower_components/,/src/main/resources/static/jquery-validation/,/src/main/resources/static/scripts/material/,/src/main/resources/static/scripts/multiselect/,/src/main/resources/static/scripts/nanobar/,/src/main/resources/static/scripts/plugins/,/src/main/resources/static/scripts/utils/**
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
