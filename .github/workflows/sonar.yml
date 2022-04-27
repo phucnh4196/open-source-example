@@ -30,7 +30,7 @@ jobs:
         script: |
           const workflowInfo = await github.rest.repos.listPullRequestsAssociatedWithCommit({
             ...context.repo,
-            commit_sha: ${{ github.event.workflow_run.head_commit.id }}
+            commit_sha: "${{ github.event.workflow_run.head_commit.id }}"
           })
           console.log(workflowInfo)
     - name: Build and analyze (PR)
