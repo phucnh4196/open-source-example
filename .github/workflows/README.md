@@ -48,8 +48,10 @@ Unit test setup
     </build>`
 
 Sonar Setup
--   Register: https://sonarcloud.io/sessions/init/github
--   Add Repository
+-   Register: https://sonarcloud.io/
+-   Add organization
+-   Bind organization to github (Avatar -> My Organizations -> <organization> -> Administrator -> Organization Settings -> Bind this organization ...)
+-   Add repository
 -   Create token (Go to Administration -> Analysis Method -> Github Action -> Copy Token)
 -   Add secret SONAR_TOKEN <-- token
 -   Get Project Key, Organization Key (Go to Information)
