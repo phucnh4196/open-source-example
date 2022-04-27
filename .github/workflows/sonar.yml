@@ -10,7 +10,6 @@ jobs:
     if: github.event.workflow_run.conclusion != 'failure'
     runs-on: ubuntu-latest
     env:
-      sonarVersion: ${{ steps.project.outputs.version }}
       sonarProjectName: ${{ secrets.SONAR_PROJECT_KEY }}
       sonarProjectKey: ${{ secrets.SONAR_PROJECT_KEY }}
       sonarJavaBinaries: .
@@ -47,8 +46,9 @@ jobs:
           core.exportVariable('prBranch', pr.head.ref)
           core.exportVariable('prBase', pr.base.ref)
           core.exportVariable('prNumber', pr.number)
-          core.exportVariable('prRepo', pr.repository)
+          core.exportVariable('prRepo', context.repository)
           core.exportVariable('endpoint', pr.api_url)
+          core.exportVariable('sonarVersion', "${{ steps.project.outputs.version }}")
     - name: Build and analyze (PR)
       if: github.event.workflow_run.event == 'pull_request'
       run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.pullrequest.github.repository=${{ env.prRepo }} -Dsonar.pullrequest.github.endpoint=${{ env.api_url }} -Dsonar.pullrequest.branch=${{ env.prBranch }} -Dsonar.pullrequest.base=${{ env.prBase }} -Dsonar.pullrequest.key=${{ env.prNumber }} -Dsonar.projectName=${{ env.sonarProjectName }} -Dsonar.projectKey=${{ env.sonarProjectName }} -Dsonar.version=${{ env.sonarVersion }} -Dsonar.java.binaries=${{ env.sonarJavaBinaries }} -Dsonar.sources=${{ env.sonarSource }} -Dsonar.inclusions=${{ env.sonarInclusion }} -Dsonar.exclusions=${{ env.sonarExclusion }}
