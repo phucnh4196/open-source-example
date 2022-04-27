@@ -34,7 +34,7 @@ jobs:
             repo: "${{ github.event.workflow_run.head_repository.name }}"
           })
           console.log(prInfo)
-          const pr = prInfo[0]
+          const pr = prInfo.data[0]
           core.exportVariable('prBranch', pr.head.ref)
           core.exportVariable('prBase', pr.base.ref)
           core.exportVariable('prNumber', pr.number)
