@@ -52,7 +52,7 @@ Sonar Setup
 -   Add Repository
 -   Create token (Go to Administration -> Analysis Method -> Github Action -> Copy Token)
 -   Add secret SONAR_TOKEN <-- token
--   Get Project Key, Organization Key: https://sonarcloud.io/project/information?id=...
+-   Get Project Key, Organization Key (Go to Information)
 -   Add secret SONAR_PROJECT_KEY <-- Project key
 -   Add secret SONAR_ORGANIZATION <-- Organization
 -   Add secret SONAR_HOST_URL <-- https://sonarcloud.io

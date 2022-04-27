@@ -23,7 +23,36 @@ jobs:
     - name: Prepare changelog
       run: |
         sed -i -e "s|<sonar.organization>\${env.SONAR_ORGANIZATION}</sonar.organization>|<sonar.organization>${{ secrets.SONAR_ORGANIZATION }}</sonar.organization>|g" pom.xml
-    - name: Build and analyze
+    - name: Find PR
+      if: github.event.workflow_run.event == 'pull_request'
+      uses: actions/github-script@v6
+      with:
+        script: |
+          const workflowInfo = await github.rest.repos.listPullRequestsAssociatedWithCommit({
+            ...context.repo,
+            commit_sha: ${{ github.event.workflow_run.head_commit.id }}
+          })
+          console.log(workflowInfo)
+    - name: Build and analyze (PR)
+      if: github.event.workflow_run.event == 'pull_request'
+      run: > 
+          mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar    
+            -Dsonar.pullrequest.branch=${{ github.event.pull_request.head.ref }} 
+            -Dsonar.pullrequest.base=${{ github.event.pull_request.base.ref }} 
+            -Dsonar.pullrequest.key=${{github.event.pull_request.number}}
+            -Dsonar.projectName=${{ secrets.SONAR_PROJECT_KEY }}
+            -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
+            -Dsonar.version=${{ steps.project.outputs.version }}
+            -Dsonar.java.binaries=.
+            -Dsonar.sources=.
+            -Dsonar.inclusions=/*.java
+            -Dsonar.exclusions=/*.zip,/*.jar,/*.html,/R.java,/build/,/target/,/.settings/,/.mvn/,/src/main/resources/static/bower_components/,/src/main/resources/static/jquery-validation/,/src/main/resources/static/scripts/material/,/src/main/resources/static/scripts/multiselect/,/src/main/resources/static/scripts/nanobar/,/src/main/resources/static/scripts/plugins/,/src/main/resources/static/scripts/utils/**
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+    - name: Build and analyze (Push)
+      if: github.event.workflow_run.event == 'push'
       run: > 
           mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar    
             -Dsonar.projectName=${{ secrets.SONAR_PROJECT_KEY }}
@@ -33,9 +62,6 @@ jobs:
             -Dsonar.sources=.
             -Dsonar.inclusions=/*.java
             -Dsonar.exclusions=/*.zip,/*.jar,/*.html,/R.java,/build/,/target/,/.settings/,/.mvn/,/src/main/resources/static/bower_components/,/src/main/resources/static/jquery-validation/,/src/main/resources/static/scripts/material/,/src/main/resources/static/scripts/multiselect/,/src/main/resources/static/scripts/nanobar/,/src/main/resources/static/scripts/plugins/,/src/main/resources/static/scripts/utils/**
-            -Dsonar.pullrequest.branch=${{ github.event.workflow_run.event.event.pull_request.head.ref }} 
-            -Dsonar.pullrequest.base=${{ github.event.workflow_run.event.event.pull_request.base.ref }} 
-            -Dsonar.pullrequest.key=${{github.event.workflow_run.event.event.pull_request.number}}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
