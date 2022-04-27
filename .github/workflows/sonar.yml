@@ -24,7 +24,7 @@ jobs:
         sed -i -e "s|<sonar.organization>\${env.SONAR_ORGANIZATION}</sonar.organization>|<sonar.organization>${{ secrets.SONAR_ORGANIZATION }}</sonar.organization>|g" pom.xml
     - name: Build and analyze
       run: > 
-          mvn sonar:sonar    
+          mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar    
             -Dsonar.projectName=${{ secrets.SONAR_PROJECT_KEY }}
             -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
             -Dsonar.version=${{ steps.project.outputs.version }}
