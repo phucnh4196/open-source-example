@@ -33,6 +33,7 @@ jobs:
             owner: "${{ github.event.workflow_run.head_commit.author.name }}",
             repo: "${{ github.event.workflow_run.head_repository.name }}"
           })
+          console.log(prInfo)
           const pr = prInfo[0]
           core.exportVariable('prBranch', pr.head.ref)
           core.exportVariable('prBase', pr.base.ref)
