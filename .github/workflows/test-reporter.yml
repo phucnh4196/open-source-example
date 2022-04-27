@@ -33,7 +33,7 @@ jobs:
           const artifactName = 'test-result'
           const workflowInfo = await github.rest.actions.listWorkflowRunArtifacts({
             ...context.repo,
-            run_id: context.runId
+            run_id: ${{ github.event.workflow_run.id }}
           })
           console.log(workflowInfo)
 
