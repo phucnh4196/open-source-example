@@ -33,7 +33,7 @@ jobs:
           const artifactName = 'test-result'
           const workflowInfo = await github.rest.actions.listWorkflowRunArtifacts({
             ...context.repo,
-            run_id: this.runId
+            run_id: context.runId
           })
 
           if (resp.data.artifacts.length === 0) {
