@@ -35,25 +35,24 @@ jobs:
             ...context.repo,
             run_id: context.runId
           })
+          console.log(workflowInfo)
 
           if (workflowInfo.data.artifacts.length === 0) {
             console.log(`No artifact on previous workflow`)
             return
           }
-
           const artifacts = workflowInfo.data.artifacts.filter(a => a.name == artifactName)
           if (artifacts.length === 0) {
             console.log(`No artifact named ${artifactName}`)
             return
           }
-
           const artifact = artifacts[0]    
-
           await github.rest.actions.downloadArtifact({
             artifact_id: artifact.id,
             archive_format: 'zip',
             ...context.repo
           })
+
     - name: Create Report
       uses: EnricoMi/publish-unit-test-result-action@v1
       with:
