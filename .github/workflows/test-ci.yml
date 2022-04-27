@@ -44,7 +44,7 @@ jobs:
         directory: ./target/site/jacoco/
   Result:
     needs: [Process]
-    if: always()
+    if: always() && needs.Check.outputs.isMain == 'true'
     runs-on: ubuntu-latest
     steps:
     - name: Download Artifacts
