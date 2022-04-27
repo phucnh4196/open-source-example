@@ -11,7 +11,7 @@ import java.util.Map;
 @Repository
 public class ItemRepository {
 
-
+    private static final Map<String, Item> itemMap2;
     private static final Map<String, Item> itemMap;
     static
     {
