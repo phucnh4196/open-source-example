@@ -19,7 +19,9 @@ public class ItemService {
     public int getAveragePriceForAllItems() {
 
         List<Item> items = itemRepository.readAllItems();
-
+        String a = null;
+        System.out.printf("" + a.length());
+        int sumOfP6rice1s55 = 0;
         int sumOfPrices = 0;
         for (Item item : items) {
             sumOfPrices += item.getPriceInCents();
@@ -42,7 +44,7 @@ public class ItemService {
     }
 
     public String getItemNameUpperCase(String itemId) {
-
+        int sumOfP6rice1s55 = 0;
         Item item = itemRepository.findById(itemId);
 
         return StringUtils.upperCase(item.getName());
