@@ -45,13 +45,13 @@ jobs:
           const prSearch = await github.rest.search.issuesAndPullRequests({
             q: "is:pr is:open sha:${{ github.event.workflow_run.head_commit.id }}"
           })
-          console.log(prSearch)
-          const prNumber = prSearch.items[0].number
-          const pr = await github.rest.pulls.get({
+          const prNumber = prSearch.data.items[0].number
+          const prInfo = await github.rest.pulls.get({
             pull_number: prNumber,
             owner: "${{ github.event.workflow_run.head_commit.author.name }}",
             repo: "${{ github.event.workflow_run.head_repository.name }}"
           })
+          const pr = prInfo.data
           core.exportVariable('prBranch', pr.head.ref)
           core.exportVariable('prBase', pr.base.ref)
           core.exportVariable('prNumber', pr.number)
