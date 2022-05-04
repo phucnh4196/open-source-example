@@ -48,8 +48,8 @@ jobs:
           const prNumber = prSearch.data.items[0].number
           const prInfo = await github.rest.pulls.get({
             pull_number: prNumber,
-            owner: "${{ github.event.workflow_run.head_commit.author.name }}",
-            repo: "${{ github.event.workflow_run.head_repository.name }}"
+            owner: context.repo.owner,
+            repo: context.repo.repo
           })
           const pr = prInfo.data
           core.exportVariable('prBranch', pr.head.ref)
