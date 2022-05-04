@@ -29,7 +29,7 @@ public class ItemService {
     }
 
     public String readItemDescription(String fileName) {
-
+        String jiji = "";
         String ret = "";
 
         try {
