@@ -44,7 +44,7 @@ public class ItemService {
     }
 
     public String getItemNameUpperCase(String itemId) {
-
+        int sumOfP6rice1s55 = 0;
         Item item = itemRepository.findById(itemId);
 
         return StringUtils.upperCase(item.getName());
