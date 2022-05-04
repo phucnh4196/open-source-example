@@ -17,26 +17,6 @@ jobs:
       sonarInclusion: /src/main/**/*.java
       sonarExclusion: /*.zip,/*.jar,/*.html,/R.java,/build/,/target/,/.settings/,/.mvn/,/src/main/resources/static/bower_components/,/src/main/resources/static/jquery-validation/,/src/main/resources/static/scripts/material/,/src/main/resources/static/scripts/multiselect/,/src/main/resources/static/scripts/nanobar/,/src/main/resources/static/scripts/plugins/,/src/main/resources/static/scripts/utils/**
     steps:
-    - name: Checkout (PR)
-      if: github.event.workflow_run.event == 'pull_request'
-      uses: actions/checkout@v2
-      with:
-        repository: ${{ github.event.workflow_run.head_repository.full_name }}
-        ref: ${{ github.event.workflow_run.head_commit.id }}
-        fetch-depth: 0
-    - name: Checkout (Push)
-      if: github.event.workflow_run.event == 'push'
-      uses: actions/checkout@v2
-    - name: Set up JDK 11
-      uses: actions/setup-java@v1
-      with:
-        java-version: 11
-    - name: Extract Maven project version
-      run: echo ::set-output name=version::$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
-      id: project
-    - name: Prepare changelog
-      run: |
-        sed -i -e "s|<sonar.organization>\${env.SONAR_ORGANIZATION}</sonar.organization>|<sonar.organization>${{ secrets.SONAR_ORGANIZATION }}</sonar.organization>|g" pom.xml
     - name: Find PR
       if: github.event.workflow_run.event == 'pull_request'
       uses: actions/github-script@v6
@@ -58,6 +38,22 @@ jobs:
           core.exportVariable('prRepo', "${{ github.repository }}")
           core.exportVariable('endpoint', "https://api.github.com/")
           core.exportVariable('sonarVersion', "${{ steps.project.outputs.version }}")
+    - name: Checkout (Push)
+      uses: actions/checkout@v2
+    - name: Checkout (PR)
+      if: github.event.workflow_run.event == 'pull_request'
+      uses: actions/checkout@v2
+      run: git pull origin pull/${{ env.prNumber }}/head
+    - name: Set up JDK 11
+      uses: actions/setup-java@v1
+      with:
+        java-version: 11
+    - name: Extract Maven project version
+      run: echo ::set-output name=version::$(mvn -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
+      id: project
+    - name: Prepare changelog
+      run: |
+        sed -i -e "s|<sonar.organization>\${env.SONAR_ORGANIZATION}</sonar.organization>|<sonar.organization>${{ secrets.SONAR_ORGANIZATION }}</sonar.organization>|g" pom.xml
     - name: Build and analyze (PR)
       if: github.event.workflow_run.event == 'pull_request'
       run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.scm.revision=${{ github.event.workflow_run.head_commit.id }} -Dsonar.pullrequest.github.repository=${{ env.prRepo }} -Dsonar.pullrequest.github.endpoint=${{ env.endpoint }} -Dsonar.pullrequest.branch=${{ env.prBranch }} -Dsonar.pullrequest.base=${{ env.prBase }} -Dsonar.pullrequest.key=${{ env.prNumber }} -Dsonar.projectName=${{ env.sonarProjectName }} -Dsonar.projectKey=${{ env.sonarProjectName }} -Dsonar.version=${{ env.sonarVersion }} -Dsonar.java.binaries=${{ env.sonarJavaBinaries }} -Dsonar.sources=${{ env.sonarSource }} -Dsonar.inclusions=${{ env.sonarInclusion }} -Dsonar.exclusions=${{ env.sonarExclusion }}
