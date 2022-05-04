@@ -43,17 +43,20 @@ jobs:
       uses: actions/github-script@v6
       with:
         script: |
-          const prInfo = await github.rest.repos.listPullRequestsAssociatedWithCommit({
-            commit_sha: "${{ github.event.workflow_run.head_commit.id }}",
+          const prSearch = await github.rest.search.issuesAndPullRequests({
+            q: "is:pr is:open sha:${{ github.event.workflow_run.head_commit.id }}"
+          })
+          const prNumber = prSearch.items[0].number
+          const pr = await github.rest.pulls.get({
+            pull_number: prNumber,
             owner: "${{ github.event.workflow_run.head_commit.author.name }}",
             repo: "${{ github.event.workflow_run.head_repository.name }}"
           })
-          const pr = prInfo.data[0]
           core.exportVariable('prBranch', pr.head.ref)
           core.exportVariable('prBase', pr.base.ref)
           core.exportVariable('prNumber', pr.number)
           core.exportVariable('prRepo', "${{ github.repository }}")
-          core.exportVariable('endpoint', pr.api_url)
+          core.exportVariable('endpoint', "https://api.github.com/")
           core.exportVariable('sonarVersion', "${{ steps.project.outputs.version }}")
     - name: Build and analyze (PR)
       if: github.event.workflow_run.event == 'pull_request'

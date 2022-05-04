@@ -1,11 +1,6 @@
 <settings>
   <servers>
     <server>
-      <id>maven-snapshots</id>
-      <username>phucnh36</username>
-      <password>123123</password>
-    </server>
-    <server>
       <id>maven-releases</id>
       <username>${env.NEXUS_USERNAME}</username>
       <password>${env.NEXUS_PASS}</password>
