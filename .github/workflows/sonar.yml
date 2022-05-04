@@ -21,7 +21,7 @@ jobs:
     - name: Find PR
       if: github.event.workflow_run.event == 'pull_request'
       uses: actions/github-script@v6
-      with:
+      with: 
         script: |
           const prSearch = await github.rest.search.issuesAndPullRequests({
             q: "is:pr is:open sha:${{ github.event.workflow_run.head_commit.id }}"
