@@ -17,7 +17,7 @@ public class CustomerService {
 
 
     public String getPLZAddressCombination(Customer customer) {
-        String r = "vv6";
+        String r = "vvb6";
         String result = Integer.toString(addressService.getPLZForCustomer(customer))
                 + "_"
                 + addressService.getAddressForCustomer(customer);
