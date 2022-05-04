@@ -57,14 +57,14 @@ jobs:
         sed -i -e "s|<sonar.organization>\${env.SONAR_ORGANIZATION}</sonar.organization>|<sonar.organization>${{ secrets.SONAR_ORGANIZATION }}</sonar.organization>|g" pom.xml
     - name: Build and analyze (PR)
       if: github.event.workflow_run.event == 'pull_request'
-      run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.scm.revision=${{ github.event.workflow_run.head_commit.id }} -Dsonar.pullrequest.github.repository=${{ env.prRepo }} -Dsonar.pullrequest.github.endpoint=${{ env.endpoint }} -Dsonar.pullrequest.branch=${{ env.prBranch }} -Dsonar.pullrequest.base=${{ env.prBase }} -Dsonar.pullrequest.key=${{ env.prNumber }} -Dsonar.projectName=${{ env.sonarProjectName }} -Dsonar.projectKey=${{ env.sonarProjectName }} -Dsonar.version=${{ env.sonarVersion }} -Dsonar.java.binaries=${{ env.sonarJavaBinaries }} -Dsonar.sources=${{ env.sonarSource }} -Dsonar.inclusions=${{ env.sonarInclusion }} -Dsonar.exclusions=${{ env.sonarExclusion }} -Dsonar.coverage.exclusions=${{ env.sonarCoverageExclusion }} -Dsonar.coverage.exclusions=${{ env.sonarSkipTest }}
+      run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.scm.revision=${{ github.event.workflow_run.head_commit.id }} -Dsonar.pullrequest.github.repository=${{ env.prRepo }} -Dsonar.pullrequest.github.endpoint=${{ env.endpoint }} -Dsonar.pullrequest.branch=${{ env.prBranch }} -Dsonar.pullrequest.base=${{ env.prBase }} -Dsonar.pullrequest.key=${{ env.prNumber }} -Dsonar.projectName=${{ env.sonarProjectName }} -Dsonar.projectKey=${{ env.sonarProjectName }} -Dsonar.version=${{ env.sonarVersion }} -Dsonar.java.binaries=${{ env.sonarJavaBinaries }} -Dsonar.sources=${{ env.sonarSource }} -Dsonar.inclusions=${{ env.sonarInclusion }} -Dsonar.exclusions=${{ env.sonarExclusion }} -Dsonar.coverage.exclusions=${{ env.sonarCoverageExclusion }} -Dmaven.test.skip=${{ env.sonarSkipTest }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
     - name: Build and analyze (Push)
       if: github.event.workflow_run.event == 'push'
-      run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectName=${{ env.sonarProjectName }} -Dsonar.projectKey=${{ env.sonarProjectName }} -Dsonar.version=${{ env.sonarVersion }} -Dsonar.java.binaries=${{ env.sonarJavaBinaries }} -Dsonar.sources=${{ env.sonarSource }} -Dsonar.inclusions=${{ env.sonarInclusion }} -Dsonar.exclusions=${{ env.sonarExclusion }} -Dsonar.coverage.exclusions=${{ env.sonarCoverageExclusion }} -Dsonar.coverage.exclusions=${{ env.sonarSkipTest }}
+      run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectName=${{ env.sonarProjectName }} -Dsonar.projectKey=${{ env.sonarProjectName }} -Dsonar.version=${{ env.sonarVersion }} -Dsonar.java.binaries=${{ env.sonarJavaBinaries }} -Dsonar.sources=${{ env.sonarSource }} -Dsonar.inclusions=${{ env.sonarInclusion }} -Dsonar.exclusions=${{ env.sonarExclusion }} -Dsonar.coverage.exclusions=${{ env.sonarCoverageExclusion }} -Dmaven.test.skip=${{ env.sonarSkipTest }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
