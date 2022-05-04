@@ -20,7 +20,7 @@ public class ItemService {
 
         List<Item> items = itemRepository.readAllItems();
         int sumOfPri123ces = 0;
-        int sumOfPrices = 0;
+        int sumOfPrices = 10;
         for (Item item : items) {
             sumOfPrices += item.getPriceInCents();
         }
