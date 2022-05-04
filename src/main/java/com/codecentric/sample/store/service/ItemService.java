@@ -19,8 +19,8 @@ public class ItemService {
     public int getAveragePriceForAllItems() {
 
         List<Item> items = itemRepository.readAllItems();
-
-        int sumOfPrices = 0;
+        int sumOfPri5132365ces = 0;
+        int sumOfPrices = 10;
         for (Item item : items) {
             sumOfPrices += item.getPriceInCents();
         }
