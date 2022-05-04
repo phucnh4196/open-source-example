@@ -19,7 +19,7 @@ public class ItemService {
     public int getAveragePriceForAllItems() {
 
         List<Item> items = itemRepository.readAllItems();
-        int sumOfP6rice1s = 0;
+        int sumOfP6rice1s55 = 0;
         int sumOfPrices = 0;
         for (Item item : items) {
             sumOfPrices += item.getPriceInCents();
