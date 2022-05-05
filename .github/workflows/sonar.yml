@@ -49,7 +49,7 @@ jobs:
               repo: context.repo.repo
             })
             const pr = prInfo.data
-            core.exportVariable('prBranch', pr.head.ref)
+            core.exportVariable('prBranch', pr.head.label.replace(':', '/'))
             core.exportVariable('prBase', pr.base.ref)
             core.exportVariable('prNumber', pr.number)
             console.log(pr)
