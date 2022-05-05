@@ -21,6 +21,7 @@ jobs:
       - name: Checkout (Push)
         if: github.event.workflow_run.event == 'push'
         uses: actions/checkout@v2
+        fetch-depth: 0
       - name: Checkout (PR)
         if: github.event.workflow_run.event == 'pull_request'
         uses: actions/checkout@v2
