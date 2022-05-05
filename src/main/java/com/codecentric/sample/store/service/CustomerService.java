@@ -39,6 +39,7 @@ public class CustomerService {
             addressService.updateExternalSystems(customer);
         }
 
+        
         return result;
     }
 }
