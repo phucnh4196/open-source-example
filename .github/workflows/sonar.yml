@@ -49,8 +49,8 @@ jobs:
               repo: context.repo.repo
             })
             const pr = prInfo.data
-            core.exportVariable('prBranch', pr.head.label.replace(':', '/'))
-            core.exportVariable('prBase', pr.base.ref)
+            core.exportVariable('prBranch', pr.head.label)
+            core.exportVariable('prBase', pr.base.label)
             core.exportVariable('prNumber', pr.number)
             console.log(pr)
       - name: Prepare config
