@@ -2,7 +2,6 @@ package com.codecentric.sample.store.model;
 
 public class Item {
 
-
     private String id;
 
     private String name;
