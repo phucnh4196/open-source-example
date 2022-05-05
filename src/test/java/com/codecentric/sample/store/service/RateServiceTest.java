@@ -1,5 +1,5 @@
 package com.codecentric.sample.store.service;
-
+ 
 import com.codecentric.sample.store.model.Item;
 import com.codecentric.sample.store.repository.ItemRepository;
 import com.codecentric.sample.store.service.tools.StaticService;
@@ -11,6 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PowerMockIgnore;
 import org.powermock.core.classloader.annotations.PrepareForTest;
 import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.modules.junit4.PowerMockRunnerDelegate;
@@ -30,6 +31,7 @@ import static org.powermock.api.mockito.PowerMockito.verifyStatic;
 @RunWith(PowerMockRunner.class)
 @PowerMockRunnerDelegate(Parameterized.class)
 @PrepareForTest({StaticService.class})
+@PowerMockIgnore("jdk.internal.reflect.*")
 public class RateServiceTest {
 
     @Mock

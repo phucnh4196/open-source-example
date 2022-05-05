@@ -8,14 +8,14 @@ import org.junit.Test;
 import org.mockito.*;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
-
+ 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
 public class CustomerServiceTest {
-
+ 
     @Spy
     private AddressService addressService;
 
@@ -30,8 +30,8 @@ public class CustomerServiceTest {
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
     }
-
-    // @Test
+ 
+    // @Test 6
     // public void testPLZAddressCombination() {
     //     //
     //     // Given
@@ -49,13 +49,11 @@ public class CustomerServiceTest {
     //     assertThat(address, is("47891_221B Bakerstreet"));
     // }
 
-
     @Test
     public void testPLZAddressCombinationIncludingHostValue() {
-
         //
         // Given
-        //
+        // 
         Customer customer = new Customer("204", "John Do", "224B Bakerstreet");
 
         doAnswer(new Answer<Customer>() {
