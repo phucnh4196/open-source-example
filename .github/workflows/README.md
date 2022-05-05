@@ -46,7 +46,7 @@ Unit test setup
             </plugin>
         </plugins>
     </build>`
-
+ 
 Sonar Setup
 -   Register: https://sonarcloud.io/
 -   Add organization
