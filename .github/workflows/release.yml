@@ -30,10 +30,7 @@ jobs:
           const fs = require('fs')
           fs.writeFileSync('./.github/workflows/changelog.json', JSON.stringify(template))
     - name: Change directory
-      uses: actions/github-script@v6
-      with:
-        script: |
-          cd packages
+      run: cd packages
     - name: Run test
       run: mvn test
     - name: Publish
