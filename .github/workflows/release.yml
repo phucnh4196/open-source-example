@@ -29,6 +29,11 @@ jobs:
           template["base_branches"] = ["${{ secrets.MAIN_BRANCH }}"]
           const fs = require('fs')
           fs.writeFileSync('./.github/workflows/changelog.json', JSON.stringify(template))
+    - name: Change directory
+      uses: actions/github-script@v6
+      with:
+        script: |
+          cd packages
     - name: Run test
       run: mvn test
     - name: Publish
