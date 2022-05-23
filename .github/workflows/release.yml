@@ -8,6 +8,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./packages
     steps:
     - name: Checkout
       uses: actions/checkout@v2
@@ -25,12 +28,10 @@ jobs:
       uses: actions/github-script@v6
       with:
         script: |
-          const template = require('./.github/workflows/changelog.template.json')
+          const template = require('../.github/workflows/changelog.template.json')
           template["base_branches"] = ["${{ secrets.MAIN_BRANCH }}"]
           const fs = require('fs')
-          fs.writeFileSync('./.github/workflows/changelog.json', JSON.stringify(template))
-    - name: Change directory
-      run: cd packages
+          fs.writeFileSync('../.github/workflows/changelog.json', JSON.stringify(template))
     - name: Run test
       run: mvn test
     - name: Publish
@@ -45,7 +46,7 @@ jobs:
       id: Changelog
       uses: mikepenz/release-changelog-builder-action@v1
       with:
-        configuration: ".github/workflows/changelog.json"
+        configuration: "../.github/workflows/changelog.json"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Create Release
